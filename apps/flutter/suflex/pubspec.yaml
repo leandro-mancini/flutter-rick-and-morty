@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_modular: ^5.0.3
+  flutter_characters:
+    path: ../../../libs/flutter/characters
 
 
   # The following adds the Cupertino Icons font to your application.

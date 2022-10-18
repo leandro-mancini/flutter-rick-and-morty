@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_characters/src/widgets/appbar_widget.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({Key? key}) : super(key: key);
@@ -11,8 +12,11 @@ class _CharactersPageState extends State<CharactersPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text('CharactersPage'),
+      backgroundColor: Colors.white,
+      body: CustomScrollView(
+        slivers: [
+          AppBarWidget()
+        ],
       ),
     );
   }

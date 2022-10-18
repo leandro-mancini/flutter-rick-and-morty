@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CharacterAllListWidget extends StatelessWidget {
   const CharacterAllListWidget({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class CharacterAllListWidget extends StatelessWidget {
               ),
               title: const Text('Personagem'),
               subtitle: const Text('Descrição personagem'),
-              onTap: () => print('Clicou em avatar $index'),
+              onTap: () => Modular.to.pushNamed('/character/$index'),
             );
           }
         ),

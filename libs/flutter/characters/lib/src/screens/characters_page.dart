@@ -5,31 +5,20 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 var characterService = CharacterService();
 
-class CharacterSearchPage extends StatefulWidget {
-  final String searchText;
-
-  const CharacterSearchPage({Key? key, required this.searchText}) : super(key: key);
+class CharactersPage extends StatefulWidget {
+  const CharactersPage({Key? key}) : super(key: key);
 
   @override
-  State<CharacterSearchPage> createState() => _CharacterSearchPageState();
+  State<CharactersPage> createState() => _CharactersPageState();
 }
 
-class _CharacterSearchPageState extends State<CharacterSearchPage> {
+class _CharactersPageState extends State<CharactersPage> {
   final searchValueController = TextEditingController();
 
   @override
   void dispose() {
     searchValueController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    searchValueController.text = widget.searchText;
-
-    print(searchValueController.text);
-
-    super.initState();
   }
 
   @override
@@ -47,15 +36,23 @@ class _CharacterSearchPageState extends State<CharacterSearchPage> {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.white,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_outlined,
-          color: Colors.black87,
+      title: const Text('Personagens', style: TextStyle(color: Colors.black87, fontSize: 16),),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.bookmark_added,
+            color: Colors.red,
+          ),
+          onPressed: () => print('Clicou em favoritos'),
         ),
-        onPressed: () => Modular.to.pop(),
-      ),
-      centerTitle: true,
-      title: const Text('Busca', style: TextStyle(color: Colors.black87, fontSize: 16),),
+        IconButton(
+          icon: const Icon(
+            Icons.filter_list_outlined,
+            color: Colors.red,
+          ),
+          onPressed: () => print('Clicou em filtro'),
+        )
+      ],
       bottom: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -85,9 +82,8 @@ class _CharacterSearchPageState extends State<CharacterSearchPage> {
               )
             ),
             onSubmitted: (value) {
-              setState(() {
-                searchValueController.text = value;
-              });
+              Modular.to.pushNamed('/character/search/$value');
+              searchValueController.clear();
             },
             textInputAction: TextInputAction.search,
           ),
@@ -98,16 +94,14 @@ class _CharacterSearchPageState extends State<CharacterSearchPage> {
 
   Widget buildList() {
     return FutureBuilder<List<Character>>(
-      future: characterService.getFilteredCharacters(CharacterFilters(
-        name: searchValueController.text
-      )),
+      future: characterService.getAllCharacters(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || snapshot.data == null) {
           return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/search.svg',
-            message: 'Desculpe, não conseguimos \n encontrar o personagem',
+            illustration: 'assets/illustrations/error.svg',
+            message: 'Ops! ocorreu um erro ao carregar os dados. Tente novamente por favor!',
           );
         }
 

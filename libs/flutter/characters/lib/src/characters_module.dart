@@ -1,6 +1,6 @@
-import 'package:flutter_characters/src/characters_page.dart';
 import 'package:flutter_characters/src/screens/character_detail_page.dart';
 import 'package:flutter_characters/src/screens/character_search_page.dart';
+import 'package:flutter_characters/src/screens/characters_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CharactersModule extends Module {

@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends StatefulWidget {
   const AppBarWidget({Key? key}) : super(key: key);
+
+  @override
+  State<AppBarWidget> createState() => _AppBarWidgetState();
+}
+
+class _AppBarWidgetState extends State<AppBarWidget> {
+  final searchValueController = TextEditingController();
+
+  @override
+  void dispose() {
+    searchValueController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      pinned: true,
       backgroundColor: Colors.white,
+      title: const Text('Personagens', style: TextStyle(color: Colors.black87, fontSize: 16),),
       actions: [
         IconButton(
           icon: const Icon(
@@ -34,6 +51,7 @@ class AppBarWidget extends StatelessWidget {
       title: SizedBox(
         height: 42,
         child: TextField(
+          controller: searchValueController,
           cursorColor: Colors.grey,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(0),
@@ -54,6 +72,11 @@ class AppBarWidget extends StatelessWidget {
               child: const Icon(Icons.search),
             )
           ),
+          onSubmitted: ((value) {
+            Modular.to.pushNamed('/character/search/$value');
+            searchValueController.clear();
+          }),
+          textInputAction: TextInputAction.go,
         ),
       ),
     );

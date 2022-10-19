@@ -94,3 +94,4 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/illustrations/search.svg
+    - assets/illustrations/error.svg

@@ -8,8 +8,12 @@ abstract class GetEntitiesService {
       List<Map<String, dynamic>> allEntities = [];
       var response = await _dio.get(url);
 
-      allEntities.addAll(List<Map<String, dynamic>>.from(response.data["results"]));
-
+      try {
+        allEntities.addAll(List<Map<String, dynamic>>.from(response.data["results"]));
+      } catch (e) {
+        allEntities.addAll(List<Map<String, dynamic>>.from(response.data));
+      }
+      
       return allEntities;
     } on DioError {
       rethrow;

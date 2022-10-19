@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api/flutter_api.dart';
+import 'package:flutter_characters/src/widgets/character_episodes_list_widget.dart';
 import 'package:flutter_characters/src/widgets/character_image_widget.dart';
 import 'package:flutter_characters/src/widgets/character_info_widget.dart';
 import 'package:flutter_characters/src/widgets/feedback_widget.dart';
@@ -68,7 +69,8 @@ class CharacterDetailPage extends StatelessWidget {
                   origin: character.origin,
                   species: character.species,
                   status: character.status,
-                )
+                ),
+                CharacterEpisodesListWidget(episode: character.episode,)
               ],
             );
           },

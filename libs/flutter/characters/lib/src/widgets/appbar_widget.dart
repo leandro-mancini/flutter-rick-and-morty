@@ -7,52 +7,53 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: Colors.white,
-      bottom: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark_added,
-              color: Colors.black87,
-            ),
-            onPressed: () => print('Clicou em favoritos'),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.bookmark_added,
+            color: Colors.red,
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.filter_list_outlined,
-              color: Colors.black87,
+          onPressed: () => print('Clicou em favoritos'),
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.filter_list_outlined,
+            color: Colors.red,
+          ),
+          onPressed: () => print('Clicou em filtro'),
+        )
+      ],
+      bottom: buildAppBar()
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.white,
+      title: SizedBox(
+        height: 42,
+        child: TextField(
+          cursorColor: Colors.grey,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(0),
+            fillColor: Colors.grey[100],
+            filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none
             ),
-            onPressed: () => print('Clicou em filtro'),
-          )
-        ],
-        title: Row(
-          children: [
-            Flexible(
-              flex: 1,
-              child: TextField(
-                cursorColor: Colors.grey,
-                decoration: InputDecoration(
-                  fillColor: Colors.grey[100],
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none
-                  ),
-                  hintText: 'Buscar personagens',
-                  hintStyle: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18
-                  ),
-                  prefixIcon: Container(
-                    padding: const EdgeInsets.all(15),
-                    width: 18,
-                    child: const Icon(Icons.search),
-                  )
-                ),
-              ),
+            hintText: 'Buscar personagens',
+            hintStyle: const TextStyle(
+              color: Colors.grey,
+              fontSize: 16
+            ),
+            prefixIcon: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              width: 18,
+              child: const Icon(Icons.search),
             )
-          ],
+          ),
         ),
       ),
     );

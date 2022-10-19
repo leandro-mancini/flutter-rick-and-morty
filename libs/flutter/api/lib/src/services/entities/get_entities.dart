@@ -15,4 +15,14 @@ abstract class GetEntitiesService {
       rethrow;
     }
   }
+
+  Future<dynamic> getEntitie(String url) async {
+    try {
+      var response = await _dio.get(url);
+
+      return response.data;
+    } on DioError {
+      rethrow;
+    }
+  }
 }

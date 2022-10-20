@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api/flutter_api.dart';
+import 'package:flutter_characters/src/screens/characters_filter_page.dart';
 import 'package:flutter_characters/src/widgets/feedback_page_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -50,7 +51,7 @@ class _CharactersPageState extends State<CharactersPage> {
             Icons.filter_list_outlined,
             color: Colors.red,
           ),
-          onPressed: () => print('Clicou em filtro'),
+          onPressed: () => changeFilter,
         )
       ],
       bottom: AppBar(
@@ -122,6 +123,16 @@ class _CharactersPageState extends State<CharactersPage> {
           },
         );
       },
+    );
+  }
+
+  void changeFilter() {
+    showModalBottomSheet(
+      enableDrag: true,
+      context: context,
+      builder: (BuildContext context) {
+        return const CharactersFilterPage();
+      }
     );
   }
 }

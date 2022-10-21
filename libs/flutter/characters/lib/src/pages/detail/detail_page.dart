@@ -3,6 +3,7 @@ import 'package:flutter_characters/src/pages/detail/detail_controller.dart';
 import 'package:flutter_characters/src/widgets/generic_label_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 
 class DetailPage extends StatefulWidget {
   final String id;
@@ -51,7 +52,22 @@ class _DetailPageState extends State<DetailPage> {
               return <Widget>[
                 buildImage(),
                 buildTitle(),
-                buildTabBar(),
+                const SliverToBoxAdapter(
+                  child: TabBar(
+                  indicator: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Colors.red, width: 3),
+                    ),
+                  ),
+                  isScrollable: true,
+                  labelColor: Colors.red,
+                  unselectedLabelColor: Colors.grey,
+                  tabs: [
+                    Tab(child: Text('Informações')),
+                    Tab(child: Text('Episódios ')),
+                  ],
+                ),
+                ),
               ];
             },
             body: TabBarView(
@@ -99,7 +115,7 @@ class _DetailPageState extends State<DetailPage> {
   buildTabBar() {
     return Observer(
       builder: (_) {
-        return SliverToBoxAdapter(
+        return detailController.hasCharacter ? SliverToBoxAdapter(
           child: TabBar(
             indicator: const BoxDecoration(
               border: Border(
@@ -114,7 +130,7 @@ class _DetailPageState extends State<DetailPage> {
               Tab(child: Text('Episódios (${detailController.episodes.length})')),
             ],
           ),
-        );
+        ) : Container();
       },
     );
   }
@@ -168,7 +184,8 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 Text(
-                  detailController.character.created.toString(),
+                  DateFormat.yMd().format(detailController.character.created),
+                  // detailController.character.created.toString(),
                   style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,

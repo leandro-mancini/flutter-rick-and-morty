@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api/flutter_api.dart';
+import 'package:flutter_characters/src/pages/detail/detail_controller.dart';
 import 'package:flutter_characters/src/widgets/character_episodes_list_widget.dart';
 import 'package:flutter_characters/src/widgets/character_image_widget.dart';
 import 'package:flutter_characters/src/widgets/character_info_widget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-var characterService = CharacterService();
-
-class CharacterDetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final String id;
 
-  const CharacterDetailPage({Key? key, required this.id}) : super(key: key);
+  const DetailPage({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  final detailController = DetailController();
+
+  @override
+  void initState() {
+    detailController.getCharacter(widget.id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,35 +56,25 @@ class CharacterDetailPage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: FutureBuilder<Character>(
-          future: characterService.getCharacter(id),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator(),);
-            } else if (snapshot.hasError || snapshot.data == null) {
-              // return const FeedbackWidget(message: 'Ops! ocorreu um erro ao carregar os dados. Tente novamente por favor!');
-              return Container();
-            }
-
-            var character = snapshot.data!;
-
-            return Column(
+        child: Observer(
+          builder: (_) {
+            return detailController.hasCharacter ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CharacterImageWidget(image: character.image),
+                CharacterImageWidget(image: detailController.character.image),
                 CharacterInfoWidget(
-                  created: character.created,
-                  gender: character.gender,
-                  location: character.location,
-                  name: character.name,
-                  origin: character.origin,
-                  species: character.species,
-                  status: character.status,
+                  created: detailController.character.created,
+                  gender: detailController.character.gender,
+                  location: detailController.character.location,
+                  name: detailController.character.name,
+                  origin: detailController.character.origin,
+                  species: detailController.character.species,
+                  status: detailController.character.status,
                 ),
-                CharacterEpisodesListWidget(episode: character.episode,)
+                CharacterEpisodesListWidget(episode: detailController.character.episode,)
               ],
-            );
+            ) : Container();
           },
         ),
       ),

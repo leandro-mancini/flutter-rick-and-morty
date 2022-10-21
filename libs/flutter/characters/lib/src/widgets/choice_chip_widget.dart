@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class ChoiceChipWidget extends StatefulWidget {
   final List<dynamic> options;
+  final dynamic selectedIndex;
   final Function(dynamic) onChange;
 
-  const ChoiceChipWidget({Key? key, required this.options, required this.onChange}) : super(key: key);
+  const ChoiceChipWidget({Key? key, required this.options, required this.onChange, this.selectedIndex}) : super(key: key);
 
   @override
   State<ChoiceChipWidget> createState() => _ChoiceChipWidgetState();
@@ -14,15 +15,12 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
   dynamic selectedIndex;
   List<dynamic> options = [];
 
-  void onChangeChip() {
-    
-  }
-
   @override
   void initState() {
     super.initState();
 
     options = widget.options;
+    selectedIndex = widget.selectedIndex;
   }
 
   @override
@@ -33,8 +31,9 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
       ChoiceChip choiceChip = ChoiceChip(
         selected: selectedIndex == i,
         label: Text(
-          widget.options[i],
+          widget.options[i].label,
           style: TextStyle(
+            fontSize: 12,
             color: selectedIndex == i ? Colors.white : Colors.grey[700],
           ),
         ),
@@ -56,7 +55,7 @@ class _ChoiceChipWidgetState extends State<ChoiceChipWidget> {
       );
 
       chips.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         child: choiceChip
       ));
     }

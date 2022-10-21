@@ -10,7 +10,7 @@ class EpisodeCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       height: 150,
       width: 150,
       decoration: BoxDecoration(

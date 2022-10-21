@@ -41,6 +41,38 @@ mixin _$DetailController on DetailControllerBase, Store {
     });
   }
 
+  late final _$episodesAtom =
+      Atom(name: 'DetailControllerBase.episodes', context: context);
+
+  @override
+  List<Episode> get episodes {
+    _$episodesAtom.reportRead();
+    return super.episodes;
+  }
+
+  @override
+  set episodes(List<Episode> value) {
+    _$episodesAtom.reportWrite(value, super.episodes, () {
+      super.episodes = value;
+    });
+  }
+
+  late final _$hasEpisodesAtom =
+      Atom(name: 'DetailControllerBase.hasEpisodes', context: context);
+
+  @override
+  bool get hasEpisodes {
+    _$hasEpisodesAtom.reportRead();
+    return super.hasEpisodes;
+  }
+
+  @override
+  set hasEpisodes(bool value) {
+    _$hasEpisodesAtom.reportWrite(value, super.hasEpisodes, () {
+      super.hasEpisodes = value;
+    });
+  }
+
   late final _$getCharacterAsyncAction =
       AsyncAction('DetailControllerBase.getCharacter', context: context);
 
@@ -49,11 +81,22 @@ mixin _$DetailController on DetailControllerBase, Store {
     return _$getCharacterAsyncAction.run(() => super.getCharacter(id));
   }
 
+  late final _$getListOfEpisodesAsyncAction =
+      AsyncAction('DetailControllerBase.getListOfEpisodes', context: context);
+
+  @override
+  Future getListOfEpisodes(List<int> ids) {
+    return _$getListOfEpisodesAsyncAction
+        .run(() => super.getListOfEpisodes(ids));
+  }
+
   @override
   String toString() {
     return '''
 character: ${character},
-hasCharacter: ${hasCharacter}
+hasCharacter: ${hasCharacter},
+episodes: ${episodes},
+hasEpisodes: ${hasEpisodes}
     ''';
   }
 }

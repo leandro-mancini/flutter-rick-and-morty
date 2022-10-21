@@ -40,18 +40,32 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: buildAppBar(),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            buildImage(),
-            buildTitle(),
-            buildInfo(),
-            buildOriginLocation(),
-            buildCharacterEpisodes(),
-          ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: buildAppBar(),
+        body: SafeArea(
+          child: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                buildImage(),
+                buildTitle(),
+                buildTabBar(),
+              ];
+            },
+            body: TabBarView(
+              children: <Widget>[
+                ListView(
+                  children: [
+                    buildInfo(),
+                    buildOriginLocation(),
+                  ],
+                ),
+                buildCharacterEpisodes(),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -79,6 +93,29 @@ class _DetailPageState extends State<DetailPage> {
           onPressed: () => print('Clicou em favoritar'),
         ),
       ],
+    );
+  }
+
+  buildTabBar() {
+    return Observer(
+      builder: (_) {
+        return SliverToBoxAdapter(
+          child: TabBar(
+            indicator: const BoxDecoration(
+              border: Border(
+                top: BorderSide(color: Colors.red, width: 3),
+              ),
+            ),
+            isScrollable: true,
+            labelColor: Colors.red,
+            unselectedLabelColor: Colors.grey,
+            tabs: [
+              Tab(child: Text('Informações')),
+              Tab(child: Text('Episódios (${detailController.episodes.length})')),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -151,39 +188,37 @@ class _DetailPageState extends State<DetailPage> {
 
     return Observer(
       builder: (_) {
-        return SliverToBoxAdapter(
-          child: detailController.hasCharacter
+        return detailController.hasCharacter
           ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: size.width,
-                    child: const Text(
-                      'Inforamções',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16
-                      ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: size.width,
+                  child: const Text(
+                    'Inforamções',
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16
                     ),
                   ),
-                  SizedBox(
-                    width: size.width,
-                    child: Wrap(
-                      children: [
-                        GenereicLabelWidget(label: detailController.character.status),
-                        GenereicLabelWidget(label: detailController.character.species),
-                        GenereicLabelWidget(label: detailController.character.gender),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          : const Center(),
-        );
+                ),
+                SizedBox(
+                  width: size.width,
+                  child: Wrap(
+                    children: [
+                      GenereicLabelWidget(label: detailController.character.status),
+                      GenereicLabelWidget(label: detailController.character.species),
+                      GenereicLabelWidget(label: detailController.character.gender),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        : const Center();
       },
     );
   }
@@ -191,51 +226,50 @@ class _DetailPageState extends State<DetailPage> {
   Widget buildOriginLocation() {
     return Observer(
       builder: (_) {
-        return SliverToBoxAdapter(
-          child: detailController.hasCharacter ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: const Text(
-                  'Origin',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16
-                  ),
+        return detailController.hasCharacter ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+              title: const Text(
+                'Origin',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
                 ),
-                subtitle: Text(
-                  detailController.character.origin.name,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                onTap: () {},
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: const Text(
-                  'Location',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16
-                  ),
+              subtitle: Text(
+                detailController.character.origin.name,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  color: Colors.grey,
                 ),
-                subtitle: Text(
-                  detailController.character.location.name,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                onTap: () {},
               ),
-            ],
-          )
-        : const Center());
+              onTap: () {},
+            ),
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+              title: const Text(
+                'Location',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+                ),
+              ),
+              subtitle: Text(
+                detailController.character.location.name,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              onTap: () {},
+            ),
+          ],
+        )
+      : const Center();
       },
     );
   }
@@ -243,34 +277,31 @@ class _DetailPageState extends State<DetailPage> {
   Widget buildCharacterEpisodes() {
     return Observer(
       builder: (_) {
-        return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (_, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: const NetworkImage('https://www.programmableweb.com/sites/default/files/rickandmortyapi.jpg'),
-                  backgroundColor: Colors.grey[300]
+        return ListView(
+          children: detailController.episodes.map((item) {
+            return ListTile(
+              leading: CircleAvatar(
+                backgroundImage: const NetworkImage('https://www.programmableweb.com/sites/default/files/rickandmortyapi.jpg'),
+                backgroundColor: Colors.grey[300]
+              ),
+              title: Text(
+                item.episode,
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
                 ),
-                title: Text(
-                  detailController.episodes[index].episode,
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16
-                  ),
+              ),
+              subtitle: Text(
+                item.name,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  color: Colors.grey,
                 ),
-                subtitle: Text(
-                  detailController.episodes[index].name,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                onTap: () {},
-              );
-            },
-            childCount: detailController.episodes.length
-          ),
+              ),
+              onTap: () {},
+            );
+          }).toList(),
         );
       },
     );

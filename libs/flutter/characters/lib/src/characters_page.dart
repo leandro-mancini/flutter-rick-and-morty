@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api/flutter_api.dart';
-import 'package:flutter_characters/src/screens/characters_filter_page.dart';
+import 'package:flutter_characters/src/characters_controller.dart';
 import 'package:flutter_characters/src/widgets/feedback_page_widget.dart';
+import 'package:flutter_characters/src/widgets/filters_widget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-var characterService = CharacterService();
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({Key? key}) : super(key: key);
@@ -14,7 +14,15 @@ class CharactersPage extends StatefulWidget {
 }
 
 class _CharactersPageState extends State<CharactersPage> {
+  final charactersController = CharactersController();
   final searchValueController = TextEditingController();
+
+  @override
+  void initState() {
+    charactersController.getAllCharacters();
+    
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -51,7 +59,7 @@ class _CharactersPageState extends State<CharactersPage> {
             Icons.filter_list_outlined,
             color: Colors.red,
           ),
-          onPressed: () => changeFilter,
+          onPressed: () => changeFilter(),
         )
       ],
       bottom: AppBar(
@@ -94,34 +102,29 @@ class _CharactersPageState extends State<CharactersPage> {
   }
 
   Widget buildList() {
-    return FutureBuilder<List<Character>>(
-      future: characterService.getAllCharacters(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError || snapshot.data == null) {
+    return Observer(
+      builder: (_) {
+        if (charactersController.characters.isEmpty && charactersController.hasCharacters) {
           return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/error.svg',
-            message: 'Ops! ocorreu um erro ao carregar os dados. Tente novamente por favor!',
+            illustration: 'assets/illustrations/search.svg',
+            message: 'Desculpe, não conseguimos \n encontrar o personagem',
           );
         }
 
-        var characters = snapshot.data!;
-
-        return ListView.builder(
-          itemCount: characters.length,
+        return charactersController.hasCharacters ? ListView.builder(
+          itemCount: charactersController.characters.length,
           itemBuilder: (context, index) {
             return ListTile(
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(characters[index].image),
+                backgroundImage: NetworkImage(charactersController.characters[index].image),
                 backgroundColor: Colors.grey[300]
               ),
-              title: Text(characters[index].name),
-              subtitle: Text(characters[index].species),
-              onTap: () => Modular.to.pushNamed('/character/${characters[index].id}'),
+              title: Text(charactersController.characters[index].name),
+              subtitle: Text(charactersController.characters[index].species),
+              onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
             );
           },
-        );
+        ) : const Center(child: CircularProgressIndicator(),);
       },
     );
   }
@@ -129,9 +132,17 @@ class _CharactersPageState extends State<CharactersPage> {
   void changeFilter() {
     showModalBottomSheet(
       enableDrag: true,
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
-        return const CharactersFilterPage();
+        return FractionallySizedBox(
+          heightFactor: 0.6,
+          child: FiltersWidget(
+            onChange: (CharacterFilters filters) {
+              charactersController.getFilteredCharacters(filters);
+            },
+          ),
+        );
       }
     );
   }

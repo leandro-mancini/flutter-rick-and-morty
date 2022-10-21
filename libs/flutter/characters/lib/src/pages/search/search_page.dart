@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api/flutter_api.dart';
+import 'package:flutter_characters/src/pages/search/search_controller.dart';
 import 'package:flutter_characters/src/widgets/feedback_page_widget.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-var characterService = CharacterService();
-
-class CharacterSearchPage extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   final String searchText;
 
-  const CharacterSearchPage({Key? key, required this.searchText}) : super(key: key);
+  const SearchPage({Key? key, required this.searchText}) : super(key: key);
 
   @override
-  State<CharacterSearchPage> createState() => _CharacterSearchPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _CharacterSearchPageState extends State<CharacterSearchPage> {
+class _SearchPageState extends State<SearchPage> {
+  final searchController = SearchController();
   final searchValueController = TextEditingController();
 
   @override
@@ -26,9 +26,7 @@ class _CharacterSearchPageState extends State<CharacterSearchPage> {
   @override
   void initState() {
     searchValueController.text = widget.searchText;
-
-    print(searchValueController.text);
-
+    searchController.getFilteredCharacters(widget.searchText);
     super.initState();
   }
 
@@ -84,11 +82,7 @@ class _CharacterSearchPageState extends State<CharacterSearchPage> {
                 child: const Icon(Icons.search),
               )
             ),
-            onSubmitted: (value) {
-              setState(() {
-                searchValueController.text = value;
-              });
-            },
+            onSubmitted: (value) => searchController.getFilteredCharacters(value),
             textInputAction: TextInputAction.search,
           ),
         ),
@@ -97,36 +91,29 @@ class _CharacterSearchPageState extends State<CharacterSearchPage> {
   }
 
   Widget buildList() {
-    return FutureBuilder<List<Character>>(
-      future: characterService.getFilteredCharacters(CharacterFilters(
-        name: searchValueController.text
-      )),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError || snapshot.data == null) {
+    return Observer(
+      builder: (_) {
+        if (searchController.characters.isEmpty && searchController.hasCharacters) {
           return const FeedbackPageWidget(
             illustration: 'assets/illustrations/search.svg',
             message: 'Desculpe, não conseguimos \n encontrar o personagem',
           );
         }
 
-        var characters = snapshot.data!;
-
-        return ListView.builder(
-          itemCount: characters.length,
+        return searchController.hasCharacters ? ListView.builder(
+          itemCount: searchController.characters.length,
           itemBuilder: (context, index) {
             return ListTile(
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(characters[index].image),
+                backgroundImage: NetworkImage(searchController.characters[index].image),
                 backgroundColor: Colors.grey[300]
               ),
-              title: Text(characters[index].name),
-              subtitle: Text(characters[index].species),
-              onTap: () => Modular.to.pushNamed('/character/${characters[index].id}'),
+              title: Text(searchController.characters[index].name),
+              subtitle: Text(searchController.characters[index].species),
+              onTap: () => Modular.to.pushNamed('/character/${searchController.characters[index].id}'),
             );
           },
-        );
+        ) : const Center(child: CircularProgressIndicator(),);
       },
     );
   }

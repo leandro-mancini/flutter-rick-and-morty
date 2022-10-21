@@ -16,7 +16,7 @@ abstract class GetEntitiesService {
       
       return allEntities;
     } on DioError {
-      rethrow;
+      return [];
     }
   }
 

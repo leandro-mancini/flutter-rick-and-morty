@@ -42,6 +42,7 @@ class _SearchPageState extends State<SearchPage> {
         textInputAction: TextInputAction.search,
         onSubmitted: (value) => searchController.getFilteredCharacters(value),
         onPressedLeadingIcon: () => Modular.to.pop(),
+        onChanged: ((value) => searchController.getFilteredToSearchCharacter(value)),
       ),
       body: SafeArea(
         child: buildList(),

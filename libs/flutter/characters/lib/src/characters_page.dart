@@ -40,9 +40,11 @@ class _CharactersPageState extends State<CharactersPage> {
         searchController: searchValueController,
         textInputAction: TextInputAction.search,
         onSubmitted: (value) {
-          Modular.to.pushNamed('/character/search/$value');
+          Modular.to.pushNamed('/character/search/$value')
+            .then((value) => charactersController.getAllCharacters());
           searchValueController.clear();
         },
+        onChanged: ((value) => charactersController.getFilteredToCharacter(value)),
         actions: [
           IconButton(
             icon: const Icon(
@@ -70,9 +72,19 @@ class _CharactersPageState extends State<CharactersPage> {
     return Observer(
       builder: (_) {
         if (charactersController.characters.isEmpty && charactersController.hasCharacters) {
-          return const FeedbackPageWidget(
-            illustration: Assets.ilSearch,
-            message: 'Desculpe, não conseguimos \n encontrar o personagem',
+          return SingleChildScrollView(
+            child: FeedbackPageWidget(
+              illustration: Assets.ilSearch,
+              message: 'Desculpe, não conseguimos \n encontrar o personagem',
+              description: 'Não se preocupe, ainda podemos \nbuscar no banco de dados.',
+              enabledAction: true,
+              textButton: 'Buscar',
+              onPressed: () {
+                Modular.to.pushNamed('/character/search/${searchValueController.text}')
+                  .then((value) => charactersController.getAllCharacters());
+                searchValueController.clear();
+              },
+            ),
           );
         }
 

@@ -14,8 +14,11 @@ dependencies:
   flutter_mobx: ^2.0.6+4
   mobx: ^2.1.1
   intl: ^0.17.0
+  skeletons: ^0.0.3
   flutter_api:
     path: ../api
+  flutter_shared:
+    path: ../shared
 
 dev_dependencies:
   flutter_test:

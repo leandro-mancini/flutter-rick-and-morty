@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api/flutter_api.dart';
 import 'package:flutter_characters/src/characters_controller.dart';
-import 'package:flutter_characters/src/widgets/feedback_page_widget.dart';
 import 'package:flutter_characters/src/widgets/filters_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_shared/flutter_shared.dart';
 
 class CharactersPage extends StatefulWidget {
   const CharactersPage({Key? key}) : super(key: key);
@@ -34,69 +34,36 @@ class _CharactersPageState extends State<CharactersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(),
+      appBar: AppBarWidget(
+        title: 'Personagens',
+        searchHintText: 'Buscar personagens',
+        searchController: searchValueController,
+        textInputAction: TextInputAction.search,
+        onSubmitted: (value) {
+          Modular.to.pushNamed('/character/search/$value')
+            .then((value) => charactersController.getAllCharacters());
+          searchValueController.clear();
+        },
+        onChanged: ((value) => charactersController.getFilteredToCharacter(value)),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.bookmark_added,
+              color: Colors.red,
+            ),
+            onPressed: () => Modular.to.pushNamed('/favorites'),
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.filter_list_outlined,
+              color: Colors.red,
+            ),
+            onPressed: () => changeFilter(),
+          )
+        ],
+      ),
       body: SafeArea(
         child: buildList(),
-      ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.white,
-      title: const Text('Personagens', style: TextStyle(color: Colors.black87, fontSize: 16),),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.bookmark_added,
-            color: Colors.red,
-          ),
-          onPressed: () => Modular.to.pushNamed('/favorites'),
-        ),
-        IconButton(
-          icon: const Icon(
-            Icons.filter_list_outlined,
-            color: Colors.red,
-          ),
-          onPressed: () => changeFilter(),
-        )
-      ],
-      bottom: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        title: SizedBox(
-          height: 42,
-          child: TextField(
-            controller: searchValueController,
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0),
-              fillColor: Colors.grey[100],
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none
-              ),
-              hintText: 'Buscar personagens',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 16
-              ),
-              prefixIcon: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                width: 18,
-                child: const Icon(Icons.search),
-              )
-            ),
-            onSubmitted: (value) {
-              Modular.to.pushNamed('/character/search/$value');
-              searchValueController.clear();
-            },
-            textInputAction: TextInputAction.search,
-          ),
-        ),
       ),
     );
   }
@@ -105,26 +72,37 @@ class _CharactersPageState extends State<CharactersPage> {
     return Observer(
       builder: (_) {
         if (charactersController.characters.isEmpty && charactersController.hasCharacters) {
-          return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/search.svg',
-            message: 'Desculpe, não conseguimos \n encontrar o personagem',
+          return SingleChildScrollView(
+            child: FeedbackPageWidget(
+              illustration: Assets.ilSearch,
+              message: 'Desculpe, não conseguimos \n encontrar o personagem',
+              description: 'Não se preocupe, ainda podemos \nbuscar no banco de dados.',
+              enabledAction: true,
+              textButton: 'Buscar',
+              onPressed: () {
+                Modular.to.pushNamed('/character/search/${searchValueController.text}')
+                  .then((value) => charactersController.getAllCharacters());
+                searchValueController.clear();
+              },
+            ),
           );
         }
 
-        return charactersController.hasCharacters ? ListView.builder(
-          itemCount: charactersController.characters.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
+        return SkeletonListWidget(
+          itemCount: 10,
+          isLoading: !charactersController.hasCharacters,
+          child: ListView.builder(
+            itemCount: charactersController.characters.length,
+            itemBuilder: (context, index) {
+              return ListTileWidget(
+                title: charactersController.characters[index].name,
+                subtitle: charactersController.characters[index].species,
                 backgroundImage: NetworkImage(charactersController.characters[index].image),
-                backgroundColor: Colors.grey[300]
-              ),
-              title: Text(charactersController.characters[index].name),
-              subtitle: Text(charactersController.characters[index].species),
-              onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
-            );
-          },
-        ) : const Center(child: CircularProgressIndicator(),);
+                onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
+              );
+            },
+          ),
+        );
       },
     );
   }

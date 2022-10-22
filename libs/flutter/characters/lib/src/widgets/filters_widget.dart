@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api/flutter_api.dart';
 import 'package:flutter_characters/src/models/filter.dart';
-import 'package:flutter_characters/src/widgets/choice_chip_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_shared/flutter_shared.dart';
 
 class FiltersWidget extends StatefulWidget {
   final Function(CharacterFilters) onChange;

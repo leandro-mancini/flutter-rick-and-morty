@@ -3,6 +3,7 @@
   "name": "flutter-characters",
   "sourceRoot": "libs/flutter/characters/src",
   "projectType": "library",
+  "implicitDependencies": ["flutter-api", "flutter-shared"],
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",

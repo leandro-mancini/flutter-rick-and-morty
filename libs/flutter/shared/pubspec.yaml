@@ -1,4 +1,4 @@
-name: flutter_characters
+name: flutter_shared
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
@@ -10,23 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_modular: ^5.0.3
   flutter_svg: ^1.1.5
-  flutter_mobx: ^2.0.6+4
-  mobx: ^2.1.1
-  intl: ^0.17.0
   skeletons: ^0.0.3
-  flutter_api:
-    path: ../api
-  flutter_shared:
-    path: ../shared
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  build_runner: ^2.2.1
-  mobx_codegen: ^2.0.7+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

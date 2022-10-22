@@ -34,12 +34,13 @@ dependencies:
   mobx: ^2.1.1
   intl: ^0.17.0
   shared_preferences: ^2.0.15
+  skeletons: ^0.0.3
   flutter_characters:
     path: ../../../libs/flutter/characters
   flutter_episodes:
     path: ../../../libs/flutter/episodes
-  flutter_api:
-    path: ../../../libs/flutter/api
+  flutter_shared:
+    path: ../../../libs/flutter/shared
 
 
   # The following adds the Cupertino Icons font to your application.

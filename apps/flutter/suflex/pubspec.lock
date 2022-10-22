@@ -97,6 +97,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  flutter_episodes:
+    dependency: "direct main"
+    description:
+      path: "../../../libs/flutter/episodes"
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:

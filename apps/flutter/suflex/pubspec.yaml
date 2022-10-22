@@ -36,6 +36,8 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_characters:
     path: ../../../libs/flutter/characters
+  flutter_episodes:
+    path: ../../../libs/flutter/episodes
   flutter_api:
     path: ../../../libs/flutter/api
 

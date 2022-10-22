@@ -17,7 +17,7 @@ class GenereicLabelWidget extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(color: Colors.red),
+        style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700),
       ),
     );
   }

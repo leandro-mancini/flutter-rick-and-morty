@@ -329,7 +329,7 @@ class _DetailPageState extends State<DetailPage> {
                   color: Colors.grey,
                 ),
               ),
-              onTap: () {},
+              onTap: () => Modular.to.pushNamed('/episode/${item.id}'),
             );
           }).toList(),
         );

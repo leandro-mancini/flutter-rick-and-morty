@@ -9,4 +9,11 @@ class EpisodeService extends GetEntitiesService {
 
     return List<Episode>.from(objects.map((x) => Episode.fromJson(x)));
   }
+
+  Future<Episode> getEpisode(String id) async {
+    dynamic objects = await super
+      .getEntitie('${Constants.baseURL}${Constants.episodeEndpoint}/$id');
+
+    return Episode.fromJson(objects);
+  }
 }

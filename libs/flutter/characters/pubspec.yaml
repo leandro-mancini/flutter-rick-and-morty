@@ -17,6 +17,8 @@ dependencies:
   intl: ^0.17.0
   flutter_api:
     path: ../api
+  flutter_shared:
+    path: ../shared
 
 dev_dependencies:
   flutter_test:

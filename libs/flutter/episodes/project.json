@@ -3,7 +3,7 @@
   "name": "flutter-episodes",
   "sourceRoot": "libs/flutter/episodes/src",
   "projectType": "library",
-  "implicitDependencies": ["flutter-api"],
+  "implicitDependencies": ["flutter-api", "flutter-shared"],
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",

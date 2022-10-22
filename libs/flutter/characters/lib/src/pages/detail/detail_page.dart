@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_characters/src/pages/detail/detail_controller.dart';
-import 'package:flutter_characters/src/widgets/generic_label_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_shared/flutter_shared.dart';
 import 'package:intl/intl.dart';
 
 class DetailPage extends StatefulWidget {

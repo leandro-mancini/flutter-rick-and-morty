@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_characters/src/pages/search/search_controller.dart';
-import 'package:flutter_characters/src/widgets/feedback_page_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_shared/flutter_shared.dart';
 
 class SearchPage extends StatefulWidget {
   final String searchText;

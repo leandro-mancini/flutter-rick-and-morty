@@ -38,6 +38,8 @@ dependencies:
     path: ../../../libs/flutter/characters
   flutter_episodes:
     path: ../../../libs/flutter/episodes
+  flutter_shared:
+    path: ../../../libs/flutter/shared
 
 
   # The following adds the Cupertino Icons font to your application.

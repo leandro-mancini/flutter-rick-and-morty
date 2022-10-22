@@ -94,14 +94,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
           favoriteController.hasFilterFavorites
         ) {
           return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/search.svg',
+            illustration: Assets.ilSearch,
             message: 'Desculpe, não conseguimos \n encontrar o personagem',
           );
         }
         
         if (favoriteController.favorites.isEmpty && favoriteController.hasFavorites) {
           return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/favorite.svg',
+            illustration: Assets.ilFavorite,
             message: 'Ops! você ainda não \nadicionou nenhum favorito',
           );
         }

@@ -276,7 +276,6 @@ class _DetailPageState extends State<DetailPage> {
                   color: Colors.grey,
                 ),
               ),
-              onTap: () {},
             ),
             ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 24),
@@ -295,7 +294,6 @@ class _DetailPageState extends State<DetailPage> {
                   color: Colors.grey,
                 ),
               ),
-              onTap: () {},
             ),
           ],
         )

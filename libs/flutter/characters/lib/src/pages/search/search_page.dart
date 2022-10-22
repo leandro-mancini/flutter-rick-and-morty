@@ -95,7 +95,7 @@ class _SearchPageState extends State<SearchPage> {
       builder: (_) {
         if (searchController.characters.isEmpty && searchController.hasCharacters) {
           return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/search.svg',
+            illustration: Assets.ilSearch,
             message: 'Desculpe, não conseguimos \n encontrar o personagem',
           );
         }

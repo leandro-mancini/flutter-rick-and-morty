@@ -106,7 +106,7 @@ class _CharactersPageState extends State<CharactersPage> {
       builder: (_) {
         if (charactersController.characters.isEmpty && charactersController.hasCharacters) {
           return const FeedbackPageWidget(
-            illustration: 'assets/illustrations/search.svg',
+            illustration: Assets.ilSearch,
             message: 'Desculpe, não conseguimos \n encontrar o personagem',
           );
         }

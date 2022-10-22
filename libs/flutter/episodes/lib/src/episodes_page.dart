@@ -120,10 +120,11 @@ class _EpisodesPageState extends State<EpisodesPage> {
                   bottom: BorderSide(width: 1, color: Colors.grey.shade200)
                 )
               ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: Text(episodesController.episode.name, style: const TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: Text(DateFormat.yMd().format(episodesController.episode.created)),
+              child: ListTileWidget(
+                enabled: false,
+                hasLeading: false,
+                title: episodesController.episode.name,
+                subtitle: DateFormat.yMd().format(episodesController.episode.created),
               ),
             ) : Container(),
           ),
@@ -141,16 +142,18 @@ class _EpisodesPageState extends State<EpisodesPage> {
           isLoading: !episodesController.hasEpisode,
           child: episodesController.hasEpisode ? ListView(
             children: [
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: Text(episodesController.episode.episode, style: const TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: const Text('Episódio'),
+              ListTileWidget(
+                enabled: false,
+                hasLeading: false,
+                title: episodesController.episode.episode,
+                subtitle: 'Episódio',
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: Text(episodesController.episode.airDate, style: const TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: const Text('Data do AR'),
-              )
+              ListTileWidget(
+                enabled: false,
+                hasLeading: false,
+                title: episodesController.episode.airDate,
+                subtitle: 'Data do AR',
+              ),
             ],
           ) : Container(),
         );
@@ -167,14 +170,10 @@ class _EpisodesPageState extends State<EpisodesPage> {
           child: ListView.builder(
             itemCount: episodesController.characters.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(episodesController.characters[index].image),
-                  backgroundColor: Colors.grey[300]
-                ),
-                title: Text(episodesController.characters[index].name, style: const TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: Text(episodesController.characters[index].species),
+              return ListTileWidget(
+                title: episodesController.characters[index].name,
+                subtitle: episodesController.characters[index].species,
+                backgroundImage: NetworkImage(episodesController.characters[index].image),
                 onTap: () => Modular.to.pushNamed('/character/${episodesController.characters[index].id}'),
               );
             },

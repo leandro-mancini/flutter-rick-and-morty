@@ -32,57 +32,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(),
+      appBar: AppBarWidget(
+        title: 'Favoritos',
+        centerTitle: true,
+        searchHintText: 'Buscar personagens',
+        searchController: searchValueController,
+        textInputAction: TextInputAction.search,
+        onChanged: ((value) => favoriteController.getFilteredToFavorite(value)),
+        onPressedLeadingIcon: () => Modular.to.pop(),
+      ),
       body: buildBody(),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.white,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_outlined,
-          color: Colors.black87,
-        ),
-        onPressed: () => Modular.to.pop(),
-      ),
-      centerTitle: true,
-      title: const Text('Favoritos', style: TextStyle(color: Colors.black87, fontSize: 16),),
-      bottom: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        title: SizedBox(
-          height: 42,
-          child: TextField(
-            controller: searchValueController,
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0),
-              fillColor: Colors.grey[100],
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none
-              ),
-              hintText: 'Buscar personagens',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 16
-              ),
-              prefixIcon: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                width: 18,
-                child: const Icon(Icons.search),
-              )
-            ),
-            onChanged: ((value) => favoriteController.getFilteredToFavorite(value)),
-            textInputAction: TextInputAction.search,
-          ),
-        ),
-      ),
     );
   }
 
@@ -106,25 +65,29 @@ class _FavoritesPageState extends State<FavoritesPage> {
           );
         }
 
-        return favoriteController.hasFavorites ? ListView.builder(
-          itemCount: favoriteController.favorites.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(favoriteController.favorites[index].image),
-                backgroundColor: Colors.grey[300]
-              ),
-              title: Text(favoriteController.favorites[index].name),
-              subtitle: Text(favoriteController.favorites[index].species),
-              onTap: () {
-                Modular.to.pushNamed('/character/${favoriteController.favorites[index].id}')
-                  .then((value) => favoriteController.getFavorites());
+        return SkeletonListWidget(
+          itemCount: 10,
+          isLoading: !favoriteController.hasFavorites,
+          child: ListView.builder(
+            itemCount: favoriteController.favorites.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(favoriteController.favorites[index].image),
+                  backgroundColor: Colors.grey[300]
+                ),
+                title: Text(favoriteController.favorites[index].name),
+                subtitle: Text(favoriteController.favorites[index].species),
+                onTap: () {
+                  Modular.to.pushNamed('/character/${favoriteController.favorites[index].id}')
+                    .then((value) => favoriteController.getFavorites());
 
-                searchValueController.clear();
-              },
-            );
-          },
-        ) : const Center(child: CircularProgressIndicator(),);
+                  searchValueController.clear();
+                },
+              );
+            },
+          )
+        );
       },
     );
   }

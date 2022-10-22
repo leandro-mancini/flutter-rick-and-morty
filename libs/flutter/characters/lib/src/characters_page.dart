@@ -34,69 +34,34 @@ class _CharactersPageState extends State<CharactersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(),
+      appBar: AppBarWidget(
+        title: 'Personagens',
+        searchHintText: 'Buscar personagens',
+        searchController: searchValueController,
+        textInputAction: TextInputAction.search,
+        onSubmitted: (value) {
+          Modular.to.pushNamed('/character/search/$value');
+          searchValueController.clear();
+        },
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.bookmark_added,
+              color: Colors.red,
+            ),
+            onPressed: () => Modular.to.pushNamed('/favorites'),
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.filter_list_outlined,
+              color: Colors.red,
+            ),
+            onPressed: () => changeFilter(),
+          )
+        ],
+      ),
       body: SafeArea(
         child: buildList(),
-      ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.white,
-      title: const Text('Personagens', style: TextStyle(color: Colors.black87, fontSize: 16),),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.bookmark_added,
-            color: Colors.red,
-          ),
-          onPressed: () => Modular.to.pushNamed('/favorites'),
-        ),
-        IconButton(
-          icon: const Icon(
-            Icons.filter_list_outlined,
-            color: Colors.red,
-          ),
-          onPressed: () => changeFilter(),
-        )
-      ],
-      bottom: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        title: SizedBox(
-          height: 42,
-          child: TextField(
-            controller: searchValueController,
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0),
-              fillColor: Colors.grey[100],
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none
-              ),
-              hintText: 'Buscar personagens',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 16
-              ),
-              prefixIcon: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                width: 18,
-                child: const Icon(Icons.search),
-              )
-            ),
-            onSubmitted: (value) {
-              Modular.to.pushNamed('/character/search/$value');
-              searchValueController.clear();
-            },
-            textInputAction: TextInputAction.search,
-          ),
-        ),
       ),
     );
   }
@@ -111,20 +76,24 @@ class _CharactersPageState extends State<CharactersPage> {
           );
         }
 
-        return charactersController.hasCharacters ? ListView.builder(
-          itemCount: charactersController.characters.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(charactersController.characters[index].image),
-                backgroundColor: Colors.grey[300]
-              ),
-              title: Text(charactersController.characters[index].name),
-              subtitle: Text(charactersController.characters[index].species),
-              onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
-            );
-          },
-        ) : const Center(child: CircularProgressIndicator(),);
+        return SkeletonListWidget(
+          itemCount: 10,
+          isLoading: !charactersController.hasCharacters,
+          child: ListView.builder(
+            itemCount: charactersController.characters.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(charactersController.characters[index].image),
+                  backgroundColor: Colors.grey[300]
+                ),
+                title: Text(charactersController.characters[index].name),
+                subtitle: Text(charactersController.characters[index].species),
+                onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
+              );
+            },
+          ),
+        );
       },
     );
   }

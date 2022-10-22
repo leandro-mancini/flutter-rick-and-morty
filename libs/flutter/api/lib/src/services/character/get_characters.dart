@@ -28,4 +28,11 @@ class CharacterService extends GetEntitiesService {
 
     return List<Character>.from(objects.map((x) => Character.fromJson(x)));
   }
+
+  Future<List<Character>> getListOfCharacters(List<int> ids) async {
+    List<Map<String, dynamic>> objects = await super.getAllEntities(
+      '${Constants.baseURL}${Constants.characterEndpoint}/$ids');
+
+    return List<Character>.from(objects.map((x) => Character.fromJson(x)));
+  }
 }

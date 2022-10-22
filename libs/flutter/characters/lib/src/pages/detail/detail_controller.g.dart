@@ -73,6 +73,38 @@ mixin _$DetailController on DetailControllerBase, Store {
     });
   }
 
+  late final _$favoritesAtom =
+      Atom(name: 'DetailControllerBase.favorites', context: context);
+
+  @override
+  List<Character> get favorites {
+    _$favoritesAtom.reportRead();
+    return super.favorites;
+  }
+
+  @override
+  set favorites(List<Character> value) {
+    _$favoritesAtom.reportWrite(value, super.favorites, () {
+      super.favorites = value;
+    });
+  }
+
+  late final _$hasFavoriteAtom =
+      Atom(name: 'DetailControllerBase.hasFavorite', context: context);
+
+  @override
+  bool get hasFavorite {
+    _$hasFavoriteAtom.reportRead();
+    return super.hasFavorite;
+  }
+
+  @override
+  set hasFavorite(bool value) {
+    _$hasFavoriteAtom.reportWrite(value, super.hasFavorite, () {
+      super.hasFavorite = value;
+    });
+  }
+
   late final _$getCharacterAsyncAction =
       AsyncAction('DetailControllerBase.getCharacter', context: context);
 
@@ -90,13 +122,43 @@ mixin _$DetailController on DetailControllerBase, Store {
         .run(() => super.getListOfEpisodes(ids));
   }
 
+  late final _$getFavoritesAsyncAction =
+      AsyncAction('DetailControllerBase.getFavorites', context: context);
+
+  @override
+  Future getFavorites() {
+    return _$getFavoritesAsyncAction.run(() => super.getFavorites());
+  }
+
+  late final _$addCharacterToFavoriteAsyncAction = AsyncAction(
+      'DetailControllerBase.addCharacterToFavorite',
+      context: context);
+
+  @override
+  Future addCharacterToFavorite(Character character, bool isFavorite) {
+    return _$addCharacterToFavoriteAsyncAction
+        .run(() => super.addCharacterToFavorite(character, isFavorite));
+  }
+
+  late final _$checkCharacterFavoriteAsyncAction = AsyncAction(
+      'DetailControllerBase.checkCharacterFavorite',
+      context: context);
+
+  @override
+  Future checkCharacterFavorite(Character character) {
+    return _$checkCharacterFavoriteAsyncAction
+        .run(() => super.checkCharacterFavorite(character));
+  }
+
   @override
   String toString() {
     return '''
 character: ${character},
 hasCharacter: ${hasCharacter},
 episodes: ${episodes},
-hasEpisodes: ${hasEpisodes}
+hasEpisodes: ${hasEpisodes},
+favorites: ${favorites},
+hasFavorite: ${hasFavorite}
     ''';
   }
 }

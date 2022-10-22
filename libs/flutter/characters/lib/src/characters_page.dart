@@ -52,7 +52,7 @@ class _CharactersPageState extends State<CharactersPage> {
             Icons.bookmark_added,
             color: Colors.red,
           ),
-          onPressed: () => print('Clicou em favoritos'),
+          onPressed: () => Modular.to.pushNamed('/favorites'),
         ),
         IconButton(
           icon: const Icon(

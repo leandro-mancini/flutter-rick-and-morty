@@ -33,6 +33,8 @@ class _DetailPageState extends State<DetailPage> {
     detailController.getCharacter(widget.id).then((value) {
       List<int> ids = getIds(value.episode);
 
+      detailController.getFavorites();
+      detailController.checkCharacterFavorite(value);
       detailController.getListOfEpisodes(ids);
     });
     
@@ -101,12 +103,24 @@ class _DetailPageState extends State<DetailPage> {
         onPressed: () => Modular.to.pop(),
       ),
       actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.favorite_outline,
-            color: Colors.black87,
-          ),
-          onPressed: () => print('Clicou em favoritar'),
+        Observer(
+          builder: (_) {
+            return detailController.hasCharacter ? IconButton(
+              icon: detailController.hasFavorite ? const Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ) : const Icon(
+                Icons.favorite_outline,
+                color: Colors.black87,
+              ),
+              onPressed: () {
+                detailController.addCharacterToFavorite(
+                  detailController.character,
+                  detailController.hasFavorite
+                );
+              }
+            ) : Container();
+          },
         ),
       ],
     );
@@ -126,7 +140,7 @@ class _DetailPageState extends State<DetailPage> {
             labelColor: Colors.red,
             unselectedLabelColor: Colors.grey,
             tabs: [
-              Tab(child: Text('Informações')),
+              const Tab(child: Text('Informações')),
               Tab(child: Text('Episódios (${detailController.episodes.length})')),
             ],
           ),
@@ -185,7 +199,6 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 Text(
                   DateFormat.yMd().format(detailController.character.created),
-                  // detailController.character.created.toString(),
                   style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
@@ -298,7 +311,7 @@ class _DetailPageState extends State<DetailPage> {
           children: detailController.episodes.map((item) {
             return ListTile(
               leading: CircleAvatar(
-                backgroundImage: const NetworkImage('https://www.programmableweb.com/sites/default/files/rickandmortyapi.jpg'),
+                backgroundImage: const AssetImage('assets/images/rickandmortyapi.jpg'),
                 backgroundColor: Colors.grey[300]
               ),
               title: Text(

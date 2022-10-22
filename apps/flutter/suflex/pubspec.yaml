@@ -33,6 +33,7 @@ dependencies:
   flutter_mobx: ^2.0.6+4
   mobx: ^2.1.1
   intl: ^0.17.0
+  shared_preferences: ^2.0.15
   flutter_characters:
     path: ../../../libs/flutter/characters
   flutter_api:
@@ -98,3 +99,6 @@ flutter:
   assets:
     - assets/illustrations/search.svg
     - assets/illustrations/error.svg
+    - assets/illustrations/favorite.svg
+
+    - assets/images/rickandmortyapi.jpg

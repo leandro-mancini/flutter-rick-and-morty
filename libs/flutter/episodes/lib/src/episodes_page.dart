@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_episodes/src/episodes_controller.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_shared/flutter_shared.dart';
 import 'package:intl/intl.dart';
 
 class EpisodesPage extends StatefulWidget {
@@ -43,7 +44,12 @@ class _EpisodesPageState extends State<EpisodesPage> {
       length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: buildAppBar(),
+        appBar: AppBarWidget(
+          title: 'Episódio',
+          centerTitle: true,
+          showSearch: false,
+          onPressedLeadingIcon: () => Modular.to.pop(),
+        ),
         body: SafeArea(
           child: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -52,19 +58,20 @@ class _EpisodesPageState extends State<EpisodesPage> {
                 buildTitle(),
                 const SliverToBoxAdapter(
                   child: TabBar(
-                  indicator: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(color: Colors.red, width: 3),
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    indicator: BoxDecoration(
+                      border: Border(
+                        top: BorderSide(color: Colors.red, width: 3),
+                      ),
                     ),
+                    isScrollable: true,
+                    labelColor: Colors.red,
+                    unselectedLabelColor: Colors.grey,
+                    tabs: [
+                      Tab(child: Text('Informações')),
+                      Tab(child: Text('Personagens')),
+                    ],
                   ),
-                  isScrollable: true,
-                  labelColor: Colors.red,
-                  unselectedLabelColor: Colors.grey,
-                  tabs: [
-                    Tab(child: Text('Informações')),
-                    Tab(child: Text('Personagens')),
-                  ],
-                ),
                 ),
               ];
             },
@@ -77,22 +84,6 @@ class _EpisodesPageState extends State<EpisodesPage> {
           ),
         ),
       ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.white,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_outlined,
-          color: Colors.black87,
-        ),
-        onPressed: () => Modular.to.pop(),
-      ),
-      centerTitle: true,
-      title: const Text('Episódio', style: TextStyle(color: Colors.black87, fontSize: 16),),
     );
   }
 
@@ -109,7 +100,6 @@ class _EpisodesPageState extends State<EpisodesPage> {
           width: size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.cover,
               image: AssetImage('assets/images/rickandmortyapi.jpg'),
             ),
           ),
@@ -119,36 +109,24 @@ class _EpisodesPageState extends State<EpisodesPage> {
   }
 
   Widget buildTitle() {
-    Size size = MediaQuery.of(context).size;
-
     return Observer(
       builder: (_) {
         return SliverToBoxAdapter(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            width: size.width,
-            child: episodesController.hasEpisode ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  episodesController.episode.name,
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-                Text(
-                  DateFormat.yMd().format(episodesController.episode.created),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+          child: SkeletonListTileWidget(
+            isLoading: !episodesController.hasEpisode,
+            child: episodesController.hasEpisode ? Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 1, color: Colors.grey.shade200)
                 )
-              ],
-            )
-            : const Center(),
-          )
+              ),
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                title: Text(episodesController.episode.name, style: const TextStyle(fontWeight: FontWeight.w700),),
+                subtitle: Text(DateFormat.yMd().format(episodesController.episode.created)),
+              ),
+            ) : Container(),
+          ),
         );
       }
     );
@@ -157,49 +135,25 @@ class _EpisodesPageState extends State<EpisodesPage> {
   Widget buildInfo() {
     return Observer(
       builder: (_) {
-        return episodesController.hasEpisode
-          ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-              title: const Text(
-                'Episódio',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16
-                ),
+        return SkeletonListWidget(
+          itemCount: 3,
+          hasLeading: false,
+          isLoading: !episodesController.hasEpisode,
+          child: episodesController.hasEpisode ? ListView(
+            children: [
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                title: Text(episodesController.episode.episode, style: const TextStyle(fontWeight: FontWeight.w700),),
+                subtitle: const Text('Episódio'),
               ),
-              subtitle: Text(
-                episodesController.episode.episode,
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-              title: const Text(
-                'Data do AR',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16
-                ),
-              ),
-              subtitle: Text(
-                episodesController.episode.airDate,
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          ],
-        )
-        : const Center();
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                title: Text(episodesController.episode.airDate, style: const TextStyle(fontWeight: FontWeight.w700),),
+                subtitle: const Text('Data do AR'),
+              )
+            ],
+          ) : Container(),
+        );
       },
     );
   }
@@ -207,19 +161,24 @@ class _EpisodesPageState extends State<EpisodesPage> {
   Widget buildCharacterEpisodes() {
     return Observer(
       builder: (_) {
-        return ListView.builder(
-          itemCount: episodesController.characters.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(episodesController.characters[index].image),
-                backgroundColor: Colors.grey[300]
-              ),
-              title: Text(episodesController.characters[index].name),
-              subtitle: Text(episodesController.characters[index].species),
-              onTap: () => Modular.to.pushNamed('/character/${episodesController.characters[index].id}'),
-            );
-          },
+        return SkeletonListWidget(
+          itemCount: 10,
+          isLoading: !episodesController.hasCharacters,
+          child: ListView.builder(
+            itemCount: episodesController.characters.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(episodesController.characters[index].image),
+                  backgroundColor: Colors.grey[300]
+                ),
+                title: Text(episodesController.characters[index].name, style: const TextStyle(fontWeight: FontWeight.w700),),
+                subtitle: Text(episodesController.characters[index].species),
+                onTap: () => Modular.to.pushNamed('/character/${episodesController.characters[index].id}'),
+              );
+            },
+          )
         );
       },
     );

@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^1.1.5
+  skeletons: ^0.0.3
 
 dev_dependencies:
   flutter_test:

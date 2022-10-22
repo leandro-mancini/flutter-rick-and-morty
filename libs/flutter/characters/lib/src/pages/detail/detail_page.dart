@@ -152,10 +152,11 @@ class _DetailPageState extends State<DetailPage> {
                   bottom: BorderSide(width: 1, color: Colors.grey.shade200)
                 )
               ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: Text(detailController.character.name, style: const TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: Text(DateFormat.yMd().format(detailController.character.created)),
+              child: ListTileWidget(
+                enabled: false,
+                hasLeading: false,
+                title: detailController.character.name,
+                subtitle: DateFormat.yMd().format(detailController.character.created),
               ),
             ) : Container(),
           ),
@@ -185,15 +186,17 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: const Text('Origin', style: TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: Text(detailController.character.origin.name),
+              ListTileWidget(
+                enabled: false,
+                hasLeading: false,
+                title: 'Origin',
+                subtitle: detailController.character.origin.name,
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                title: const Text('Location', style: TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: Text(detailController.character.location.name),
+              ListTileWidget(
+                enabled: false,
+                hasLeading: false,
+                title: 'Location',
+                subtitle: detailController.character.location.name,
               ),
             ],
           ) : Container(),
@@ -211,14 +214,10 @@ class _DetailPageState extends State<DetailPage> {
           child: ListView.builder(
             itemCount: detailController.episodes.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                leading: CircleAvatar(
-                  backgroundImage: const AssetImage(Assets.imgRickMorty),
-                  backgroundColor: Colors.grey[300]
-                ),
-                title: Text(detailController.episodes[index].episode, style: const TextStyle(fontWeight: FontWeight.w700),),
-                subtitle: Text(detailController.episodes[index].name),
+              return ListTileWidget(
+                title: detailController.episodes[index].episode,
+                subtitle: detailController.episodes[index].name,
+                backgroundImage: const AssetImage(Assets.imgRickMorty),
                 onTap: () => Modular.to.pushNamed('/episode/${detailController.episodes[index].id}'),
               );
             },

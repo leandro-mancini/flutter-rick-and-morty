@@ -65,13 +65,10 @@ class _SearchPageState extends State<SearchPage> {
           child: ListView.builder(
             itemCount: searchController.characters.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(searchController.characters[index].image),
-                  backgroundColor: Colors.grey[300]
-                ),
-                title: Text(searchController.characters[index].name),
-                subtitle: Text(searchController.characters[index].species),
+              return ListTileWidget(
+                title: searchController.characters[index].name,
+                subtitle: searchController.characters[index].species,
+                backgroundImage: NetworkImage(searchController.characters[index].image),
                 onTap: () => Modular.to.pushNamed('/character/${searchController.characters[index].id}'),
               );
             },

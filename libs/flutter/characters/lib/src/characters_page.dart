@@ -82,13 +82,10 @@ class _CharactersPageState extends State<CharactersPage> {
           child: ListView.builder(
             itemCount: charactersController.characters.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(charactersController.characters[index].image),
-                  backgroundColor: Colors.grey[300]
-                ),
-                title: Text(charactersController.characters[index].name),
-                subtitle: Text(charactersController.characters[index].species),
+              return ListTileWidget(
+                title: charactersController.characters[index].name,
+                subtitle: charactersController.characters[index].species,
+                backgroundImage: NetworkImage(charactersController.characters[index].image),
                 onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
               );
             },

@@ -71,13 +71,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
           child: ListView.builder(
             itemCount: favoriteController.favorites.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(favoriteController.favorites[index].image),
-                  backgroundColor: Colors.grey[300]
-                ),
-                title: Text(favoriteController.favorites[index].name),
-                subtitle: Text(favoriteController.favorites[index].species),
+              return ListTileWidget(
+                title: favoriteController.favorites[index].name,
+                subtitle: favoriteController.favorites[index].species,
+                backgroundImage: NetworkImage(favoriteController.favorites[index].image),
                 onTap: () {
                   Modular.to.pushNamed('/character/${favoriteController.favorites[index].id}')
                     .then((value) => favoriteController.getFavorites());

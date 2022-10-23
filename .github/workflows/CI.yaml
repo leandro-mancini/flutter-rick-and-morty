@@ -67,4 +67,5 @@ jobs:
           channel: 'stable'
       - name: Flutter analyze
         run: npx nx run-many --target=analyze --all=true
+      - name: Flutter format
         run: npx nx run-many --target=format --all=true

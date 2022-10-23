@@ -50,4 +50,4 @@ jobs:
           key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
         
       - name: analyze all
-        run: npx nx run-many --target=analyze --all=true 
+        run: npx nx run-many --target=analyze --all=true --skip-nx-cache

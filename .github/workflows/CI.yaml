@@ -39,8 +39,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          cache: true
-          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-key: ${{ runner.os }}-flutter
           architecture: x64
       - run: flutter --version
 
@@ -62,7 +61,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /opt/hostedtoolcache/flutter
-          key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          key: ${{ runner.os }}-flutter
       - uses: subosito/flutter-action@v2
         with:
             channel: 'stable'

@@ -1,6 +1,7 @@
 name: flutter_characters
 description: A new Flutter package project.
 version: 0.0.1
+publish_to: none
 homepage:
 
 environment:
@@ -17,7 +18,7 @@ dependencies:
   intl: ^0.17.0
   skeletons: ^0.0.3
   flutter_api:
-    path: ../api
+    path: ./../api
   flutter_shared:
     path: ../shared
 

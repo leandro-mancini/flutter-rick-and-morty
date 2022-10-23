@@ -1,0 +1,75 @@
+name: CI/CD
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [16.16.0]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
+      
+      - name: Use Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: git fetch --no-tags --prune --depth=5 origin main
+      
+      - name: Install deps
+        if: steps.cache-node-modules.cache-hit != 'true'
+        run: npm install
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache-key: ${{ runner.os }}-flutter
+          architecture: x64
+      - run: flutter --version
+
+  build_appbundle:
+    name: Build flutter appbundle (Android)
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
+        
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Flutter analyze
+        run: npx nx run flutter-suflex:build-appbundle
+      - name: Upload appbundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: appbundle
+          path: apps/flutter/suflex/build\app\outputs\bundle\release\app-release.aab

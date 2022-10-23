@@ -147,8 +147,6 @@ class _FiltersWidgetState extends State<FiltersWidget> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          primary: Colors.red,
-          onPrimary: Colors.white,
         ),
         child: const Text('APLICAR'),
       ),

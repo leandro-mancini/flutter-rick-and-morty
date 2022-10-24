@@ -1,6 +1,6 @@
 # Flutter desafio 
 
-Desafio em flutter consumindo API The Rick and Morty.
+Desafio em flutter consumindo [API The Rick and Morty](https://rickandmortyapi.com/).
 
 Monorepo para projetos frontend utilizando
 
@@ -38,6 +38,13 @@ Na raiz do repositório execute o comando
 
 ```bash
 npm install
+```
+
+Antes de executar o projeto, execute os comandos
+
+```bash
+flutter clean
+flutter pub get
 ```
 
 Para iniciar o aplicativo em desenvolvimento, execute o comando
@@ -115,11 +122,21 @@ O `CI` auxilia em termos de segurança e confiabilidade no código desenvolvido,
 
 Esse workflow é responsável por buildar o aplicativo e gerar o `appbundle`
 
-#### Jobx que são executados:
+#### Jobs que são executados:
 
 - prepare
 - build_appbundle
 
 ![image](https://user-images.githubusercontent.com/8883746/197499861-a6027aa5-236b-4454-8c6d-247af9153d5a.png)
 
+## Integração com o gráfico de dependências
 
+Através do comando `nx graph`, é possível visualizar as dependências de qualquer módulo. Ele abrirá um gráfico de dependência em um navegador. No menu do lado esquerdo, você pode escolher quais projetos deseja incluir na visualização. Após clicar em Select all, você deverá ver o seguinte gráfico:
+
+![image](https://user-images.githubusercontent.com/8883746/197503984-5042cdf4-9760-4ad4-8dd6-4a38d979973e.png)
+
+| Personagens | Episódios | Splash |
+| ----- | ----- | ----- |
+| ![image](https://user-images.githubusercontent.com/8883746/197504751-403e6177-11b8-40f0-af10-0b6764d34c2d.png) | ![image](https://user-images.githubusercontent.com/8883746/197505259-e09371ce-966b-4f53-8ed3-a55422ba4397.png) | ![image](https://user-images.githubusercontent.com/8883746/197505393-879f09fc-b37a-469c-ad57-e1dc9cd9e97b.png) |
+
+## Capturas de tela

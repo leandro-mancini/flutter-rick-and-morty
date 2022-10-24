@@ -3,7 +3,7 @@
   "name": "flutter-suflex",
   "sourceRoot": "apps/flutter/suflex/src",
   "projectType": "application",
-  "implicitDependencies": ["flutter-characters", "flutter-episodes"],
+  "implicitDependencies": ["flutter-characters", "flutter-episodes", "flutter-splash"],
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",

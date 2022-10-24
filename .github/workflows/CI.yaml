@@ -8,10 +8,6 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        node-version: [16.16.0]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -69,3 +65,28 @@ jobs:
         run: npx nx run-many --target=analyze --all=true
       - name: Flutter format
         run: npx nx run-many --target=format --all=true
+
+  test:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
+        
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Flutter test
+        run: npx nx run-many --target=test --all=true --exclude=flutter-api,flutter-episodes,flutter-characters,flutter-suflex

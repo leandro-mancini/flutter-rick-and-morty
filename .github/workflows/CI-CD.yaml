@@ -37,8 +37,6 @@ jobs:
           channel: 'stable'
           cache-key: ${{ runner.os }}-flutter
           architecture: x64
-          flutter-version: '3.0.5'
-
       - run: flutter --version
 
   build_appbundle:

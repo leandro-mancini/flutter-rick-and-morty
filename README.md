@@ -94,3 +94,32 @@ Execute todos os testes unitários do repositório
 ```bash
 nx run-many --target=test --all=true
 ```
+
+## Workflows
+
+Sempre que uma PR é aberta é iniciado um workflow de `CI` (Continuous Integration). Após ser criado um novo release é iniciado um workflow de `CD` (Continuous Delivery).
+
+### CI - Continuous Integration
+
+O `CI` auxilia em termos de segurança e confiabilidade no código desenvolvido, antes dele ser de fato mergeado. Onde é estressados cenários de testes, análises do código e formatação.
+
+#### Jobs que são executados:
+
+- prepare
+- analyze
+- test
+
+![image](https://user-images.githubusercontent.com/8883746/197499630-be60f3b2-b626-4f46-813f-d4e4b499fd45.png)
+
+### CD - Continuous Delivery
+
+Esse workflow é responsável por buildar o aplicativo e gerar o `appbundle`
+
+#### Jobx que são executados:
+
+- prepare
+- build_appbundle
+
+![image](https://user-images.githubusercontent.com/8883746/197499861-a6027aa5-236b-4454-8c6d-247af9153d5a.png)
+
+

@@ -62,7 +62,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Flutter analyze
+      - name: Flutter appbundle
         run: npx nx run flutter-suflex:build-appbundle
       - name: Upload appbundle
         uses: actions/upload-artifact@v3

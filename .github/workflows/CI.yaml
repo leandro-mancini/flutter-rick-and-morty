@@ -89,4 +89,4 @@ jobs:
         with:
           channel: 'stable'
       - name: Flutter test
-        run: npx nx run-many --target=test --all=true --exclude=flutter-api,flutter-episodes,flutter-characters,flutter-suflex
+        run: npx nx run-many --target=test --all=true --exclude=flutter-api,flutter-episodes,flutter-characters,flutter-suflex,flutter-splash

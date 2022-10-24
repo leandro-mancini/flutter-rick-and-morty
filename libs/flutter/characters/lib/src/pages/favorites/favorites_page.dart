@@ -39,6 +39,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         searchController: searchValueController,
         textInputAction: TextInputAction.search,
         onChanged: ((value) => favoriteController.getFilteredToFavorite(value)),
+        onSubmitted: (value) => favoriteController.getFilteredToFavorite(value),
         onPressedLeadingIcon: () => Modular.to.pop(),
       ),
       body: buildBody(),
@@ -76,7 +77,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 subtitle: favoriteController.favorites[index].species,
                 backgroundImage: NetworkImage(favoriteController.favorites[index].image),
                 onTap: () {
-                  Modular.to.pushNamed('/character/${favoriteController.favorites[index].id}')
+                  Modular.to.pushNamed('/characters/character/${favoriteController.favorites[index].id}')
                     .then((value) => favoriteController.getFavorites());
 
                   searchValueController.clear();

@@ -1,11 +1,13 @@
 import 'package:flutter_characters/flutter_characters.dart';
 import 'package:flutter_episodes/flutter_episodes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_splash/main.dart';
 
 class AppModule extends Module {
   @override
   List<ModularRoute> get routes => [
-    ModuleRoute('/', module: CharactersModule()),
+    ModuleRoute('/', module: SplashModule()),
+    ModuleRoute('/characters', module: CharactersModule()),
     ModuleRoute('/episode', module: EpisodesModule())
   ];
 }

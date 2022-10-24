@@ -43,8 +43,7 @@ npm install
 Antes de executar o projeto, execute os comandos
 
 ```bash
-flutter clean
-flutter pub get
+nx run flutter-suflex:clean
 ```
 
 Para iniciar o aplicativo em desenvolvimento, execute o comando
@@ -140,3 +139,19 @@ Através do comando `nx graph`, é possível visualizar as dependências de qual
 | ![image](https://user-images.githubusercontent.com/8883746/197504751-403e6177-11b8-40f0-af10-0b6764d34c2d.png) | ![image](https://user-images.githubusercontent.com/8883746/197505259-e09371ce-966b-4f53-8ed3-a55422ba4397.png) | ![image](https://user-images.githubusercontent.com/8883746/197505393-879f09fc-b37a-469c-ad57-e1dc9cd9e97b.png) |
 
 ## Capturas de tela
+
+| Personagens | Busca |
+| ----------- | ----- |
+| ![image](./_screenshots/01.personagens.jpeg) | ![image](./_screenshots/02.busca.jpeg) |
+
+| Detalhe/Informações | Detalhe/Episódios |
+| ------------------- | ----------------- |
+| ![image](./_screenshots/03.detalhe-informacoes.jpeg) | ![image](./_screenshots/03.detalhe-episodios.jpeg) |
+
+| Episódio/Informações | Episódio/Personagens |
+| -------------------- | -------------------- |
+| ![image](./_screenshots/04.episodio-informacoes.jpeg) | ![image](./_screenshots/04.episodio-personagens.jpeg) |
+
+| Filtros | Favoritos |
+| -------------------- | -------------------- |
+| ![image](./_screenshots/05.filtros.jpeg) | ![image](./_screenshots/06.favoritos.jpeg) |

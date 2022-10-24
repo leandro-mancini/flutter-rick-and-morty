@@ -28,7 +28,7 @@ class ListTileWidget extends StatelessWidget {
       ) : null,
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.black87),),
       subtitle: Text(subtitle),
-      onTap: enabled ? () => onTap!() : null,
+      onTap: enabled ? onTap : null,
     );
   }
 }

@@ -5,7 +5,12 @@ class ChoiceChipWidget extends StatefulWidget {
   final dynamic selectedIndex;
   final Function(dynamic) onChange;
 
-  const ChoiceChipWidget({Key? key, required this.options, required this.onChange, this.selectedIndex}) : super(key: key);
+  const ChoiceChipWidget({
+    Key? key,
+    required this.options,
+    required this.onChange,
+    this.selectedIndex = 0
+  }) : super(key: key);
 
   @override
   State<ChoiceChipWidget> createState() => _ChoiceChipWidgetState();

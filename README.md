@@ -138,6 +138,9 @@ Através do comando `nx graph`, é possível visualizar as dependências de qual
 | ----- | ----- | ----- |
 | ![image](https://user-images.githubusercontent.com/8883746/197504751-403e6177-11b8-40f0-af10-0b6764d34c2d.png) | ![image](https://user-images.githubusercontent.com/8883746/197505259-e09371ce-966b-4f53-8ed3-a55422ba4397.png) | ![image](https://user-images.githubusercontent.com/8883746/197505393-879f09fc-b37a-469c-ad57-e1dc9cd9e97b.png) |
 
+| Api | Shared |
+| ----------- | ----- |
+| ![image](https://user-images.githubusercontent.com/8883746/197551294-b3e2ac00-e877-4b1b-bdf9-9039f255f219.png) | ![image](https://user-images.githubusercontent.com/8883746/197551541-a4634874-d268-4ac2-818e-f20729457a78.png) |
 ## Capturas de tela
 
 | Personagens | Busca |

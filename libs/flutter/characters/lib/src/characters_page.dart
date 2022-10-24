@@ -40,7 +40,7 @@ class _CharactersPageState extends State<CharactersPage> {
         searchController: searchValueController,
         textInputAction: TextInputAction.search,
         onSubmitted: (value) {
-          Modular.to.pushNamed('/character/search/$value')
+          Modular.to.pushNamed('/characters/character/search/$value')
             .then((value) => charactersController.getAllCharacters());
           searchValueController.clear();
         },
@@ -51,7 +51,7 @@ class _CharactersPageState extends State<CharactersPage> {
               Icons.bookmark_added,
               color: Colors.red,
             ),
-            onPressed: () => Modular.to.pushNamed('/favorites'),
+            onPressed: () => Modular.to.pushNamed('/characters/favorites'),
           ),
           IconButton(
             icon: const Icon(
@@ -80,7 +80,7 @@ class _CharactersPageState extends State<CharactersPage> {
               enabledAction: true,
               textButton: 'Buscar',
               onPressed: () {
-                Modular.to.pushNamed('/character/search/${searchValueController.text}')
+                Modular.to.pushNamed('/characters/character/search/${searchValueController.text}')
                   .then((value) => charactersController.getAllCharacters());
                 searchValueController.clear();
               },
@@ -98,7 +98,7 @@ class _CharactersPageState extends State<CharactersPage> {
                 title: charactersController.characters[index].name,
                 subtitle: charactersController.characters[index].species,
                 backgroundImage: NetworkImage(charactersController.characters[index].image),
-                onTap: () => Modular.to.pushNamed('/character/${charactersController.characters[index].id}'),
+                onTap: () => Modular.to.pushNamed('/characters/character/${charactersController.characters[index].id}'),
               );
             },
           ),

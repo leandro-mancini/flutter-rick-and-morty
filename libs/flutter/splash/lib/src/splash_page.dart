@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
     animation = CurvedAnimation(
       parent: controller,
-      curve: Curves.easeInOut,
+      curve: Curves.fastOutSlowIn,
     );
   }
 

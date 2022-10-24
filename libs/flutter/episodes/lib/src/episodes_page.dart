@@ -174,7 +174,7 @@ class _EpisodesPageState extends State<EpisodesPage> {
                 title: episodesController.characters[index].name,
                 subtitle: episodesController.characters[index].species,
                 backgroundImage: NetworkImage(episodesController.characters[index].image),
-                onTap: () => Modular.to.pushNamed('/character/${episodesController.characters[index].id}'),
+                onTap: () => Modular.to.pushNamed('/characters/character/${episodesController.characters[index].id}'),
               );
             },
           )

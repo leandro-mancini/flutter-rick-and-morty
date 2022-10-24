@@ -70,7 +70,7 @@ class _SearchPageState extends State<SearchPage> {
                 title: searchController.characters[index].name,
                 subtitle: searchController.characters[index].species,
                 backgroundImage: NetworkImage(searchController.characters[index].image),
-                onTap: () => Modular.to.pushNamed('/character/${searchController.characters[index].id}'),
+                onTap: () => Modular.to.pushNamed('/characters/character/${searchController.characters[index].id}'),
               );
             },
           ),

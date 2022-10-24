@@ -76,7 +76,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 subtitle: favoriteController.favorites[index].species,
                 backgroundImage: NetworkImage(favoriteController.favorites[index].image),
                 onTap: () {
-                  Modular.to.pushNamed('/character/${favoriteController.favorites[index].id}')
+                  Modular.to.pushNamed('/characters/character/${favoriteController.favorites[index].id}')
                     .then((value) => favoriteController.getFavorites());
 
                   searchValueController.clear();

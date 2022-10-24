@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FeedbackPageWidget extends StatelessWidget {
-  final String illustration;
+  final String? illustration;
   final String message;
   final String? description;
   final String? textButton;
@@ -12,7 +12,7 @@ class FeedbackPageWidget extends StatelessWidget {
   const FeedbackPageWidget({
     Key? key,
     required this.message,
-    required this.illustration,
+    this.illustration,
     this.description,
     this.onPressed,
     this.enabledAction = false,
@@ -28,11 +28,11 @@ class FeedbackPageWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              illustration,
+            illustration != null ? SvgPicture.asset(
+              illustration!,
               width: 200,
               height: 200,
-            ),
+            ) : Container(),
             Text(
               message,
               textAlign: TextAlign.center,
@@ -52,7 +52,7 @@ class FeedbackPageWidget extends StatelessWidget {
               ),
             ) : Container(),
             enabledAction ? TextButton(
-              onPressed: () => onPressed!(),
+              onPressed: onPressed,
               child: Text(textButton!, style: const TextStyle(color: Colors.red),)
             ) : Container(),
           ],

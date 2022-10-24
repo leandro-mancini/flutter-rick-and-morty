@@ -21,6 +21,7 @@ abstract class CharactersControllerBase with Store {
 
   @action
   getAllCharacters() async {
+    hasCharacters = false;
     allCharacters = await characterService.getAllCharacters();
     characters = allCharacters;
     hasCharacters = true;

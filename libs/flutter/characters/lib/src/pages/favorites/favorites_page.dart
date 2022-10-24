@@ -39,6 +39,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         searchController: searchValueController,
         textInputAction: TextInputAction.search,
         onChanged: ((value) => favoriteController.getFilteredToFavorite(value)),
+        onSubmitted: (value) => favoriteController.getFilteredToFavorite(value),
         onPressedLeadingIcon: () => Modular.to.pop(),
       ),
       body: buildBody(),

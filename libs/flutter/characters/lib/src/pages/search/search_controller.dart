@@ -21,7 +21,7 @@ abstract class SearchControllerBase with Store {
 
   @action
   getFilteredCharacters(String name) async {
-    hasCharacters = true;
+    hasCharacters = false;
     allCharacters = await characterService.getFilteredCharacters(CharacterFilters(name: name));
     characters = allCharacters;
     hasCharacters = true;

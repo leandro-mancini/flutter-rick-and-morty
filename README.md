@@ -1,94 +1,96 @@
+# Flutter desafio 
 
+Desafio em flutter consumindo API The Rick and Morty.
 
-# FlutterDesafio
+Monorepo para projetos frontend utilizando
 
-This project was generated using [Nx](https://nx.dev).
+- [Nx Workspace](https://nx.dev/) 14.8.6
+- [Flutter](https://flutter.dev/) 3.0.5
+- Dart 2.17.6
+- Node 16.16.0
+- Npm 8.11.0
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Dependências
 
-🔎 **Smart, Fast and Extensible Build System**
+- [dio](https://pub.dev/packages/dio) 4.0.6
+- [flutter_modular](https://pub.dev/packages/flutter_modular) 5.0.3
+- [flutter_mobx](https://pub.dev/packages/flutter_mobx) 2.0.6+4
+- [flutter_svg](https://pub.dev/packages/flutter_svg) 1.1.5
+- [intl](https://pub.dev/packages/intl) 0.17.0
+- [mobx](https://pub.dev/packages/mobx) 2.1.1
+- [shared_preferences](https://pub.dev/packages/shared_preferences) 2.0.15
+- [skeletons](https://pub.dev/packages/skeletons) 0.0.3
 
-## Adding capabilities to your workspace
+## Funcionalidades
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+- Lista dos personagens com seus respectivos nomes e fotos
+- Busca por personagens (Nome)
+- Filtro que permite listar todos, só humanos ou só aliens, status e gênero
+- Visualização detalhada do personagem
+- Lista de favoritos e adicionar/remover personagens
+- Visualização detalhada do episódio
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## Configurações iniciais
 
-Below are our core plugins:
+> 💡 Garanta que seu Node esteja na versão 16x, para uma melhor compatibilidade e integração
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+Na raiz do repositório execute o comando
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+```bash
+npm install
+```
 
-## Generate an application
+Para iniciar o aplicativo em desenvolvimento, execute o comando
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+```bash
+npx nx run flutter-suflex:run
+```
 
-> You can use any of the plugins above to generate applications as well.
+---
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+## Comandos úteis
 
-## Generate a library
+Todos os comandos rodam no NX CLI instalado no workspace.
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Caso estela com algum problema com o comando local você pode acionar pelo `npx`
 
-> You can also use any of the plugins above to generate libraries as well.
+| COMANDO | DESCRIÇÃO |
+| ------- | --------- |
+| `nx run flutter-suflex:analyze` | Analise o código Dart do projeto |
+| `nx run flutter-suflex:clean` | Excluir os diretórios `build/` e `dart_tool/` |
+| `nx run flutter-suflex:format` | Formate um ou mais arquivos Dart |
+| `nx run flutter-suflex:test` | Execute testes de unidade Flutter para o projeto atual |
+| `nx run flutter-suflex:doctor` | Execute o Flutter doctor para verificar o ambiente e o status da instalação do Flutter |
+| `nx run flutter-suflex:assemble` | Montar e construir recursos Flutter |
+| `nx run flutter-suflex:attach` | Anexar a um aplicativo em execução |
+| `nx run flutter-suflex:drive` | Execute testes de integração para o projeto em um dispositivo ou emulador conectado |
+| `nx run flutter-suflex:gen-l10n` | Gerar localizações para o projeto atual |
+| `nx run flutter-suflex:install` | Instale um aplicativo Flutter em um dispositivo conectado |
+| `nx run flutter-suflex:run` | Execute seu aplicativo Flutter em um dispositivo conectado |
+| `nx run flutter-suflex:build-aar` | Construir um repositório contendo um AAR e um arquivo POM |
+| `nx run flutter-suflex:build-apk` | Crie um arquivo APK do Android a partir do seu aplicativo |
+| `nx run flutter-suflex:build-appbundle` | Crie um arquivo Android App Bundle a partir do seu aplicativo |
+| `nx run flutter-suflex:build-bundle` | Crie o diretório de ativos do Flutter a partir do seu aplicativo |
+| `nx run flutter-suflex:build-ios` | Criar um pacote de aplicativos iOS (somente host Mac OS X) |
+| `nx run flutter-suflex:build-ios-framework` | Produz um diretório .framework para um módulo Flutter e seus plugins para integração em projetos Xcode simples e existentes |
+| `nx run flutter-suflex:build-ipa` | Criar um pacote de arquivos iOS (somente host do Mac OS X) |
 
-Libraries are shareable across libraries and applications. They can be imported from `@flutter-desafio/mylib`.
+### Exemplos
 
-## Development server
+Serve a aplicação em modo desenvolvimento
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+```bash
+nx run flutter-suflex:run
+```
 
-## Code scaffolding
+Execute os testes unitários do projeto
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+```bash
+nx run flutter-suflex:test
+```
 
-## Build
+Execute todos os testes unitários do repositório
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+```bash
+nx run-many --target=test --all=true
+```

@@ -1,6 +1,6 @@
 # Flutter desafio 
 
-Desafio em flutter consumindo [API The Rick and Morty](https://rickandmortyapi.com/).
+App em flutter consumindo [API The Rick and Morty](https://rickandmortyapi.com/).
 
 Monorepo para projetos frontend utilizando
 

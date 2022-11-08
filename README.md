@@ -30,6 +30,7 @@ Monorepo para projetos frontend utilizando
 - Lista de favoritos e adicionar/remover personagens
 - Visualização detalhada do episódio
 
+
 ## Configurações iniciais
 
 > 💡 Garanta que seu Node esteja na versão 16x, para uma melhor compatibilidade e integração

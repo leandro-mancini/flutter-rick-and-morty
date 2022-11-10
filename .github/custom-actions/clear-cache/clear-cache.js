@@ -13,7 +13,7 @@ async function run() {
     try {
         await getCaches()
             .then(caches => caches.length > 0 ?? caches.map(cache => cache.id))
-            .then(ids => ids.map(id => deleteCache(id)));
+            .then(ids => console.log(ids));
     } catch (e) {
         throw new Error(`Erro ao realizar a limpeza dos caches, ${e}`);
     }

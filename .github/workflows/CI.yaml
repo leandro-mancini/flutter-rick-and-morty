@@ -7,8 +7,8 @@ on:
 
 jobs:
   prepare:
-  needs: clear-caches
     runs-on: ubuntu-latest
+    needs: clear-caches
     steps:
       - uses: actions/checkout@v3
         with:

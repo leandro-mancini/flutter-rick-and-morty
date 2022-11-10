@@ -30,6 +30,8 @@ async function getCaches() {
 
 async function deleteCache(id) {
     try {
+        console.log(`Deletando cache com id: ${id}`);
+
         return octokit.request('DELETE /repos/{owner}/{repo}/actions/caches/{cache_id}', {
             owner: OWNER,
             repo: REPO,

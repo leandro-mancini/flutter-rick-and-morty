@@ -101,5 +101,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
+
       - name: Clear Cache
         uses: ./.github/custom-actions/clear-cache

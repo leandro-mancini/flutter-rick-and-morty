@@ -8,6 +8,7 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    needs: clear-caches
     steps:
       - uses: actions/checkout@v3
         with:
@@ -101,11 +102,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
+      - name: Install deps
+        run: npm install
 
       - name: Clear Cache
         uses: ./.github/custom-actions/clear-cache

@@ -90,3 +90,14 @@ jobs:
           channel: 'stable'
       - name: Flutter test
         run: npx nx run-many --target=test --all=true --exclude=flutter-api,flutter-episodes,flutter-characters,flutter-suflex,flutter-splash
+
+    clear-caches:
+      runs-on: ubuntu-latest
+      permissions: write-all
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+
+        - name: Clear Cache
+          uses: ./.github/custom-actions/clear-cache

@@ -1,0 +1,6 @@
+name: 'Clear Cache'
+description: 'Clear cache in Github Actions'
+
+runs:
+  using: 'node16'
+  main: 'clear-cache.js'

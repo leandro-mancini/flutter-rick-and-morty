@@ -12,7 +12,8 @@ async function run() {
 
     try {
         await getCaches()
-            .then(caches => console.log(caches));
+            .then(caches => caches.map(cache => cache.id))
+            .then(ids => ids.map(id => deleteCache(id)));
     } catch (e) {
         throw new Error(`Erro ao realizar a limpeza dos caches, ${e}`);
     }

@@ -91,13 +91,15 @@ jobs:
       - name: Flutter test
         run: npx nx run-many --target=test --all=true --exclude=flutter-api,flutter-episodes,flutter-characters,flutter-suflex,flutter-splash
 
-    clear-caches:
-      runs-on: ubuntu-latest
-      permissions: write-all
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+  clear-caches:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    env:
+      GITHUB_AUTH_TOKEN: ghp_l46xXXjs0hynQtUEE5Xgwg3AO8tfuY4QkADl
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-        - name: Clear Cache
-          uses: ./.github/custom-actions/clear-cache
+      - name: Clear Cache
+        uses: ./.github/custom-actions/clear-cache

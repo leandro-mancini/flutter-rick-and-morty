@@ -1,7 +1,7 @@
 const { Octokit } = require('@octokit/core');
 
 const octokit = new Octokit({
-    auth: process.env.GITHUB_AUTH_TOKEN
+    auth: 'ghp_l46xXXjs0hynQtUEE5Xgwg3AO8tfuY4QkADl'
 });
 
 const OWNER = 'leandro-mancini';

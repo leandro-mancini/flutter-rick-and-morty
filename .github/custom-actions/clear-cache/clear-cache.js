@@ -19,15 +19,24 @@ async function run() {
 }
 
 async function getCaches() {
-    console.log(OWNER);
-    console.log(REPO);
-
     const { data } = await octokit.request('GET /repos/{owner}/{repo}/actions/caches', {
         owner: OWNER,
         repo: REPO
     });
 
     return data.actions_caches;
+}
+
+async function deleteCache(id) {
+    try {
+        return octokit.request('DELETE /repos/{owner}/{repo}/actions/caches/{cache_id}', {
+            owner: OWNER,
+            repo: REPO,
+            cache_id: id
+        });
+    } catch (e) {
+        throw new Error(`Ocorreu um erro na deleção do cache, ${e}`);
+    }
 }
 
 

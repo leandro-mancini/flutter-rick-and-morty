@@ -1,13 +1,15 @@
 const { Octokit } = require('@octokit/core');
 
 const octokit = new Octokit({
-    auth: 'ghp_l46xXXjs0hynQtUEE5Xgwg3AO8tfuY4QkADl'
+    auth: process.env.GITHUB_AUTH_TOKEN
 });
 
 const OWNER = 'leandro-mancini';
 const REPO = 'flutter-rick-and-morty';
 
 async function run() {
+    console.log(process.env.GITHUB_AUTH_TOKEN);
+
     try {
         await getCaches()
             .then(caches => console.log(caches));
@@ -17,6 +19,9 @@ async function run() {
 }
 
 async function getCaches() {
+    console.log(OWNER);
+    console.log(REPO);
+
     const { data } = await octokit.request('GET /repos/{owner}/{repo}/actions/caches', {
         owner: OWNER,
         repo: REPO

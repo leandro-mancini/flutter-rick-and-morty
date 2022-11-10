@@ -95,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     env:
-      GITHUB_AUTH_TOKEN: 'ghp_l46xXXjs0hynQtUEE5Xgwg3AO8tfuY4QkADl'
+      GITHUB_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     steps:
       - uses: actions/checkout@v3
         with:

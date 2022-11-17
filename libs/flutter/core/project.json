@@ -1,0 +1,115 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "flutter-core",
+  "sourceRoot": "libs/flutter/core/src",
+  "projectType": "library",
+  "implicitDependencies": ["flutter-splash", "flutter-characters", "flutter-episodes"],
+  "targets": {
+    "analyze": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter analyze",
+        "cwd": "libs/flutter/core"
+      }
+    },
+    "clean": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter clean",
+        "cwd": "libs/flutter/core"
+      }
+    },
+    "format": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter format libs/flutter/core/*",
+        "cwd": "libs/flutter/core"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter test",
+        "cwd": "libs/flutter/core"
+      }
+    },
+    "doctor": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter doctor",
+        "cwd": "libs/flutter/core"
+      }
+    },
+    "build-aar": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build aar",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    },
+    "build-apk": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build apk",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    },
+    "build-appbundle": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build appbundle",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    },
+    "build-bundle": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build bundle",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    },
+    "build-ios": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build ios",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    },
+    "build-ios-framework": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build ios-framework",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    },
+    "build-ipa": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "flutter build ipa",
+        "cwd": "libs/flutter/core"
+      },
+      "outputs": [
+        "libs/flutter/core/build"
+      ]
+    }
+  },
+  "tags": []
+}

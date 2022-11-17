@@ -3,7 +3,7 @@
   "name": "flutter-splash",
   "sourceRoot": "libs/flutter/splash/src",
   "projectType": "library",
-  "implicitDependencies": ["flutter-shared"],
+  "implicitDependencies": ["flutter-commons"],
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",

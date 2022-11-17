@@ -5,6 +5,10 @@ on:
     types: [opened, reopenned, ready_for_review, edited, synchronize]
     branches: [main]
 
+env:
+  FLUTTER_VERSION: "3.0.5"
+  JAVA_VERSION: "12.x"
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -15,28 +19,28 @@ jobs:
       
       - name: cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
       
-      - name: Use Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Use Node 16
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - run: git fetch --no-tags --prune --depth=5 origin main
+          node-version: 16
       
       - name: Install deps
         if: steps.cache-node-modules.cache-hit != 'true'
         run: npm install
 
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
         with:
-          channel: 'stable'
-          cache-key: ${{ runner.os }}-flutter
-          architecture: x64
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.FLUTTER_VERSION }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
       - run: flutter --version
 
   analyze:
@@ -48,21 +52,23 @@ jobs:
           fetch-depth: 0
 
       - name: cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
         
       - name: Cache Flutter dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /opt/hostedtoolcache/flutter
-          key: ${{ runner.os }}-flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.FLUTTER_VERSION }}
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
       - name: Flutter analyze
         run: npx nx run-many --target=analyze --all=true
+
       - name: Flutter format
         run: npx nx run-many --target=format --all=true
 
@@ -75,18 +81,19 @@ jobs:
           fetch-depth: 0
 
       - name: cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-node-modules-cache-${{ hashFiles('package-lock.json') }}
         
       - name: Cache Flutter dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /opt/hostedtoolcache/flutter
-          key: ${{ runner.os }}-flutter
+          key: ${{ runner.OS }}-flutter-install-cache-${{ env.FLUTTER_VERSION }}
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
       - name: Flutter test
-        run: npx nx run-many --target=test --all=true --exclude=flutter-api,flutter-episodes,flutter-characters,flutter-suflex,flutter-splash
+        run: npx nx run flutter-shared:test

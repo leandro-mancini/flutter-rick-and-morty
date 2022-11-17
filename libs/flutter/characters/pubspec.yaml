@@ -11,14 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_modular: ^5.0.3
-  flutter_svg: ^1.1.5
-  flutter_mobx: ^2.0.6+4
-  mobx: ^2.1.1
   intl: ^0.17.0
   skeletons: ^0.0.3
-  flutter_api:
-    path: ./../api
+  dartz: ^0.10.1
+  flutter_mobx: ^2.0.6+4
+  flutter_commons:
+    path: ../commons
   flutter_shared:
     path: ../shared
 

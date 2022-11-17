@@ -3,6 +3,7 @@
   "name": "flutter-rick-morty",
   "sourceRoot": "apps/flutter/rick-morty/src",
   "projectType": "application",
+  "implicitDependencies": ["flutter-core"],
   "targets": {
     "analyze": {
       "executor": "@nrwl/workspace:run-commands",

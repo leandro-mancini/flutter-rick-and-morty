@@ -43,13 +43,13 @@ npm install
 Antes de executar o projeto, execute os comandos
 
 ```bash
-nx run flutter-suflex:clean
+nx run flutter-rick-morty:clean
 ```
 
 Para iniciar o aplicativo em desenvolvimento, execute o comando
 
 ```bash
-npx nx run flutter-suflex:run
+npx nx run flutter-rick-morty:run
 ```
 
 ---
@@ -62,37 +62,37 @@ Caso estela com algum problema com o comando local você pode acionar pelo `npx`
 
 | COMANDO | DESCRIÇÃO |
 | ------- | --------- |
-| `nx run flutter-suflex:analyze` | Analise o código Dart do projeto |
-| `nx run flutter-suflex:clean` | Excluir os diretórios `build/` e `dart_tool/` |
-| `nx run flutter-suflex:format` | Formate um ou mais arquivos Dart |
-| `nx run flutter-suflex:test` | Execute testes de unidade Flutter para o projeto atual |
-| `nx run flutter-suflex:doctor` | Execute o Flutter doctor para verificar o ambiente e o status da instalação do Flutter |
-| `nx run flutter-suflex:assemble` | Montar e construir recursos Flutter |
-| `nx run flutter-suflex:attach` | Anexar a um aplicativo em execução |
-| `nx run flutter-suflex:drive` | Execute testes de integração para o projeto em um dispositivo ou emulador conectado |
-| `nx run flutter-suflex:gen-l10n` | Gerar localizações para o projeto atual |
-| `nx run flutter-suflex:install` | Instale um aplicativo Flutter em um dispositivo conectado |
-| `nx run flutter-suflex:run` | Execute seu aplicativo Flutter em um dispositivo conectado |
-| `nx run flutter-suflex:build-aar` | Construir um repositório contendo um AAR e um arquivo POM |
-| `nx run flutter-suflex:build-apk` | Crie um arquivo APK do Android a partir do seu aplicativo |
-| `nx run flutter-suflex:build-appbundle` | Crie um arquivo Android App Bundle a partir do seu aplicativo |
-| `nx run flutter-suflex:build-bundle` | Crie o diretório de ativos do Flutter a partir do seu aplicativo |
-| `nx run flutter-suflex:build-ios` | Criar um pacote de aplicativos iOS (somente host Mac OS X) |
-| `nx run flutter-suflex:build-ios-framework` | Produz um diretório .framework para um módulo Flutter e seus plugins para integração em projetos Xcode simples e existentes |
-| `nx run flutter-suflex:build-ipa` | Criar um pacote de arquivos iOS (somente host do Mac OS X) |
+| `nx run flutter-rick-morty:analyze` | Analise o código Dart do projeto |
+| `nx run flutter-rick-morty:clean` | Excluir os diretórios `build/` e `dart_tool/` |
+| `nx run flutter-rick-morty:format` | Formate um ou mais arquivos Dart |
+| `nx run flutter-rick-morty:test` | Execute testes de unidade Flutter para o projeto atual |
+| `nx run flutter-rick-morty:doctor` | Execute o Flutter doctor para verificar o ambiente e o status da instalação do Flutter |
+| `nx run flutter-rick-morty:assemble` | Montar e construir recursos Flutter |
+| `nx run flutter-rick-morty:attach` | Anexar a um aplicativo em execução |
+| `nx run flutter-rick-morty:drive` | Execute testes de integração para o projeto em um dispositivo ou emulador conectado |
+| `nx run flutter-rick-morty:gen-l10n` | Gerar localizações para o projeto atual |
+| `nx run flutter-rick-morty:install` | Instale um aplicativo Flutter em um dispositivo conectado |
+| `nx run flutter-rick-morty:run` | Execute seu aplicativo Flutter em um dispositivo conectado |
+| `nx run flutter-rick-morty:build-aar` | Construir um repositório contendo um AAR e um arquivo POM |
+| `nx run flutter-rick-morty:build-apk` | Crie um arquivo APK do Android a partir do seu aplicativo |
+| `nx run flutter-rick-morty:build-appbundle` | Crie um arquivo Android App Bundle a partir do seu aplicativo |
+| `nx run flutter-rick-morty:build-bundle` | Crie o diretório de ativos do Flutter a partir do seu aplicativo |
+| `nx run flutter-rick-morty:build-ios` | Criar um pacote de aplicativos iOS (somente host Mac OS X) |
+| `nx run flutter-rick-morty:build-ios-framework` | Produz um diretório .framework para um módulo Flutter e seus plugins para integração em projetos Xcode simples e existentes |
+| `nx run flutter-rick-morty:build-ipa` | Criar um pacote de arquivos iOS (somente host do Mac OS X) |
 
 ### Exemplos
 
 Serve a aplicação em modo desenvolvimento
 
 ```bash
-nx run flutter-suflex:run
+nx run flutter-rick-morty:run
 ```
 
 Execute os testes unitários do projeto
 
 ```bash
-nx run flutter-suflex:test
+nx run flutter-rick-morty:test
 ```
 
 Execute todos os testes unitários do repositório
@@ -132,15 +132,15 @@ Esse workflow é responsável por buildar o aplicativo e gerar o `appbundle`
 
 Através do comando `nx graph`, é possível visualizar as dependências de qualquer módulo. Ele abrirá um gráfico de dependência em um navegador. No menu do lado esquerdo, você pode escolher quais projetos deseja incluir na visualização. Após clicar em Select all, você deverá ver o seguinte gráfico:
 
-![image](https://user-images.githubusercontent.com/8883746/197503984-5042cdf4-9760-4ad4-8dd6-4a38d979973e.png)
+![image](https://user-images.githubusercontent.com/8883746/202485835-0699df95-d1e3-4097-8e48-9b2f0dd7affa.png)
 
 | Personagens | Episódios | Splash |
 | ----- | ----- | ----- |
-| ![image](https://user-images.githubusercontent.com/8883746/197504751-403e6177-11b8-40f0-af10-0b6764d34c2d.png) | ![image](https://user-images.githubusercontent.com/8883746/197505259-e09371ce-966b-4f53-8ed3-a55422ba4397.png) | ![image](https://user-images.githubusercontent.com/8883746/197505393-879f09fc-b37a-469c-ad57-e1dc9cd9e97b.png) |
+| ![image](https://user-images.githubusercontent.com/8883746/202486039-c2853386-d605-4a43-8bc8-e99ad17dd52c.png) | ![image](https://user-images.githubusercontent.com/8883746/202486216-c5042753-8445-4d92-b117-4d04d94e3eb8.png) | ![image](https://user-images.githubusercontent.com/8883746/202486380-b237e992-4b90-46d0-a85a-bd96ea2983a2.png) |
 
-| Api | Shared |
+| Commons | Shared |
 | ----------- | ----- |
-| ![image](https://user-images.githubusercontent.com/8883746/197551294-b3e2ac00-e877-4b1b-bdf9-9039f255f219.png) | ![image](https://user-images.githubusercontent.com/8883746/197551541-a4634874-d268-4ac2-818e-f20729457a78.png) |
+| ![image](https://user-images.githubusercontent.com/8883746/202486532-cdef70f5-a559-495a-8342-9b19e408c3c1.png) | ![image](https://user-images.githubusercontent.com/8883746/202486655-abcf7423-4a7b-44ea-b206-0ab35216267b.png) |
 ## Capturas de tela
 
 | Personagens | Busca |

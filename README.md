@@ -1,4 +1,4 @@
-# Flutter desafio 
+# Flutter Rick and Morty 
 
 App em flutter consumindo [API The Rick and Morty](https://rickandmortyapi.com/).
 
